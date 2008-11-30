@@ -1,0 +1,30 @@
+These are the areas I intend to work on in the HTML Presentation Toolkit.
+
+Version 1.0
+-----------
+* Basic OSF template
+* Presentation/normal CSS
+* Skinnability
+  * ability to choose skin
+  * default skin
+  * maybe more skins
+* Localization
+  * cs-CZ
+  * en-US
+  * automatic detection (probably based on lang/xml:lang attribute on <html>
+    element), but overridable
+* Presentation/normal mode working in Opera and Firefox
+* Keyboard navigation
+* Display slide number
+* "Goto" input box
+* Browser support
+  * Opera 9.5+
+  * Safari (some recent version)
+  * IE 6/7+
+  * Forefox 3+
+* Sophisticated intro/example presentation
+* Project website
+
+Later versions
+--------------
+* Sophisticated incremental display of slides (maybe)
