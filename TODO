@@ -2,12 +2,7 @@ These are the areas I intend to work on in the HTML Presentation Toolkit.
 
 Version 1.0
 -----------
-* Basic OSF template
 * Presentation/normal CSS
-* Skinnability
-  * Ability to choose skin
-  * Default skin
-  * Maybe more skins
 * Localization
   * cs-CZ
   * en-US
@@ -37,6 +32,7 @@ Version 1.0
   * Look at Google Docs
   * Maybe show some semi-transparent layer with arrows (just Unicode characters?)
   * Maybe some navigation controls
+* Improve default skin
 * Sophisticated intro/example presentation
 * Project website
 
