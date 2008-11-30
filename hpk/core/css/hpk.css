@@ -5,16 +5,16 @@
 
 @media projection {
   html, body, .presentation { height: 100%; margin: 0; padding: 0; }
-  div.layout { position: fixed; width: 100%; height: 100%; }
-  div.slide { page-break-after: always; max-height: 100%; overflow: auto; }
-  div.notes, div.handout { display: none; }
+  .layout { position: fixed; width: 100%; height: 100%; }
+  .slide { page-break-after: always; max-height: 100%; overflow: auto; }
+  .notes, .handout { display: none; }
 }
 
 @media screen {
-  div.layout { display: none; }
+  .layout { display: none; }
 }
 
 @media print {
-  div.layout { display: none; }
-  div.slide { page-break-inside: avoid; }
+  .layout { display: none; }
+  .slide { page-break-inside: avoid; }
 }
