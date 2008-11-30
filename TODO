@@ -5,26 +5,43 @@ Version 1.0
 * Basic OSF template
 * Presentation/normal CSS
 * Skinnability
-  * ability to choose skin
-  * default skin
-  * maybe more skins
+  * Ability to choose skin
+  * Default skin
+  * Maybe more skins
 * Localization
   * cs-CZ
   * en-US
-  * automatic detection (probably based on lang/xml:lang attribute on <html>
+  * Automatic detection (probably based on lang/xml:lang attribute on <html>
     element), but overridable
 * Presentation/normal mode working in Opera and Firefox
 * Keyboard navigation
 * Display slide number
+  * Use CSS counters? Need to investigate support and emulation
+    (http://www.opera.com/browser/tutorials/operashow/documentation/doc_stylesheets.dml)
 * "Goto" input box
 * Browser support
   * Opera 9.5+
   * Safari (some recent version)
   * IE 6/7+
-  * Forefox 3+
+  * Firefox 3+
+* Font sizes
+  * Allow explicit resizing using browser features or custom controls (suggested
+    by Met)
+  * Maybe use Opera's solution based on media queries and emulate them in
+    unsupported browsers?
+    (http://www.opera.com/browser/tutorials/operashow/documentation/doc_stylesheets.dml)
+* Linkable slides (suggested by Met)
+  * URL like "presentation.html#slide15" should switch to presentation mode and
+    go to slide 15
+* Better UI experience (suggested by Met)
+  * Look at Google Docs
+  * Maybe show some semi-transparent layer with arrows (just Unicode characters?)
+  * Maybe some navigation controls
 * Sophisticated intro/example presentation
 * Project website
 
 Later versions
 --------------
 * Sophisticated incremental display of slides (maybe)
+  * Display handouts from incrementally displayed slides in normal/print mode,
+    even when those slides are not visible themselves (suggested by Met)
