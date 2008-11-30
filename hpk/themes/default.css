@@ -14,3 +14,13 @@
     color: black; background-color: #e0ffe0;
   }
 }
+
+@media screen {
+  .slide .handout { margin: 1em; padding: .5em 1em; background-color: #e0e0e0; }
+  .slide .handout:before { display: block; font-weight: bold; }
+}
+
+@media print {
+  .slide .handout { margin: 1em; padding: .5em 1em; background-color: #e0e0e0; }
+  .slide .handout:before { display: block; font-weight: bold; }
+}
