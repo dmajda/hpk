@@ -185,7 +185,7 @@ HPK.Presentation.prototype = {
   /* If the document is in the presentation mode, moves to the previous slide
      (if there is any). */
   gotoPrevSlide: function() {
-    if (this._inPresentationMode && this.isOnFirstSlide()) {
+    if (this._inPresentationMode && !this.isOnFirstSlide()) {
       this._slides[this._currentSlideIndex].hide();
       this._currentSlideIndex--;
       this._slides[this._currentSlideIndex].show();
