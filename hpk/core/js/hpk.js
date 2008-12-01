@@ -1,25 +1,6 @@
 /* HPK Namespace. */
 var HPK = {}
 
-/* ===== Slide ===== */
-
-/* Creates a new Slide object using specified DOM element as its contents. */
-HPK.Slide = function(element) {
-  this._element = element;
-}
-
-HPK.Slide.prototype = {
-  /* Shows the slide. */
-  show: function() {
-    $(this._element).show();
-  },
-
-  /* Hides the slide. */
-  hide: function() {
-    $(this._element).hide();
-  }
-}
-
 /* ===== Presentation ===== */
 
 /* Creates a new Presentation object and injects the presentation mode toggle
@@ -29,7 +10,7 @@ HPK.Presentation = function() {
      See http://www.opera.com/browser/tutorials/operashow/. */
   if ($.browser.opera) { return; }
 
-  this._slides = this._buildSlides();
+  this._slides = $("div.presentation div.slide");
   this._currentSlideIndex = null;
   this._inPresentationMode = false;
   this._screenRules = this._findMediaRules("screen");
@@ -39,13 +20,6 @@ HPK.Presentation = function() {
 }
 
 HPK.Presentation.prototype = {
-  /* Searches the document for slides and builds associated objects. */
-  _buildSlides: function() {
-    return $("div.presentation div.slide").map(function() {
-      return new HPK.Slide(this);
-    });
-  },
-
   /* Finds CSS @media rules with given medium and returns them as an array. */
   _findMediaRules: function(medium) {
     result = [];
@@ -92,6 +66,11 @@ HPK.Presentation.prototype = {
       media.deleteMedium(fromMedium);
       media.appendMedium(toMedium);
     }
+  },
+
+  /* Returns current slide as jQuery object. */
+  _currentSlide: function() {
+    return this._slides.slice(this._currentSlideIndex, this._currentSlideIndex + 1);
   },
 
   /* Are we in the presentation mode? */
@@ -149,13 +128,10 @@ HPK.Presentation.prototype = {
   /* Switches document into the presentation mode. */
   enterPresentationMode: function() {
     if (this._inPresentationMode) { return; }
+    if (this._slides.length == 0) { return; }
 
-    if (this._slides.length > 0) {
-      for (var i = 1; i < this._slides.length; i++) {
-        this._slides[i].hide();
-      }
-      this._currentSlideIndex = 0;
-    }
+    this._slides.slice(1).hide();
+    this._currentSlideIndex = 0;
 
     this._changeRulesMedium(this._screenRules, "screen", "projection");
     this._changeRulesMedium(this._projectionRules, "projection", "screen");
@@ -170,9 +146,7 @@ HPK.Presentation.prototype = {
   exitPresentationMode: function() {
     if (!this._inPresentationMode) { return; }
 
-    for (var i = 0; i < this._slides.length; i++) {
-      this._slides[i].show();
-    }
+    this._slides.show();
     this._currentSlideIndex = null;
 
     this._changeRulesMedium(this._screenRules, "projection", "screen");
@@ -200,9 +174,9 @@ HPK.Presentation.prototype = {
      there is any). */
   gotoNextSlide: function() {
     if (this._inPresentationMode && !this.isOnLastSlide()) {
-      this._slides[this._currentSlideIndex].hide();
+      this._currentSlide().hide();
       this._currentSlideIndex++;
-      this._slides[this._currentSlideIndex].show();
+      this._currentSlide().show();
     }
   },
 
@@ -210,9 +184,9 @@ HPK.Presentation.prototype = {
      (if there is any). */
   gotoPrevSlide: function() {
     if (this._inPresentationMode && !this.isOnFirstSlide()) {
-      this._slides[this._currentSlideIndex].hide();
+      this._currentSlide().hide();
       this._currentSlideIndex--;
-      this._slides[this._currentSlideIndex].show();
+      this._currentSlide().show();
     }
   },
 
