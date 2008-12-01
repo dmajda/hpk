@@ -73,11 +73,6 @@ HPK.Presentation.prototype = {
     return this._slides.slice(this._currentSlideIndex, this._currentSlideIndex + 1);
   },
 
-  /* Are we in the presentation mode? */
-  isInPresentationMode: function() {
-    return this._inPresentationMode;
-  },
-
   /* Handles document "click" event. */
   _documentClick: function(event) {
     switch (event.which) {
@@ -123,6 +118,11 @@ HPK.Presentation.prototype = {
             return false;
         }
     }
+  },
+
+  /* Are we in the presentation mode? */
+  isInPresentationMode: function() {
+    return this._inPresentationMode;
   },
 
   /* Switches document into the presentation mode. */
