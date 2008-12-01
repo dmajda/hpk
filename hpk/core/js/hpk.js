@@ -99,6 +99,26 @@ HPK.Presentation.prototype = {
     return this._inPresentationMode;
   },
 
+  /* Handles document "click" event. */
+  _documentClick: function(event) {
+    switch (event.which) {
+      case 1: // Left button
+        if (!HPK.presentation.isOnLastSlide()) {
+          HPK.presentation.gotoNextSlide();
+        } else {
+          HPK.presentation.exitPresentationMode();
+        }
+        return false;
+      case 3: // Right button
+        if (!HPK.presentation.isOnFirstSlide()) {
+          HPK.presentation.gotoPrevSlide();
+        } else {
+          HPK.presentation.exitPresentationMode();
+        }
+        return false;
+    }
+  },
+
   /* Switches document into the presentation mode. */
   enterPresentationMode: function() {
     if (this._inPresentationMode) { return; }
@@ -117,24 +137,7 @@ HPK.Presentation.prototype = {
       HPK.presentation.exitPresentationMode();
     });
 
-    this._oldDocumentClickHandler = $(document).click(function(event) {
-      switch (event.which) {
-        case 1: // Left button
-          if (!HPK.presentation.isOnLastSlide()) {
-            HPK.presentation.gotoNextSlide();
-          } else {
-            HPK.presentation.exitPresentationMode();
-          }
-          return false;
-        case 3: // Right button
-          if (!HPK.presentation.isOnFirstSlide()) {
-            HPK.presentation.gotoPrevSlide();
-          } else {
-            HPK.presentation.exitPresentationMode();
-          }
-          return false;
-      }
-    });
+    this._oldDocumentClickHandler = $(document).click(this._documentClick);
 
     this._inPresentationMode = true;
   },
