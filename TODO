@@ -2,10 +2,6 @@ These are the areas I intend to work on in the HTML Presentation Toolkit.
 
 Version 1.0
 -----------
-* Localization
-  * Automatic detection (probably based on lang/xml:lang attribute on <html>
-    element), but overridable
-* Keyboard navigation
 * Display slide number
   * Use CSS counters? Need to investigate support and emulation
     (http://www.opera.com/browser/tutorials/operashow/documentation/doc_stylesheets.dml)
@@ -27,6 +23,9 @@ Version 1.0
   * Maybe show some semi-transparent layer with arrows (just Unicode characters?)
   * Maybe some navigation controls
 * Improve default skin
+* Localization
+  * Automatic detection? Probably based on lang/xml:lang attribute on <html>
+    elemen, should be overridable
 * Sophisticated intro/example presentation
 * Project website
 
