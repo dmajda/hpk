@@ -103,18 +103,10 @@ HPK.Presentation.prototype = {
   _documentClick: function(event) {
     switch (event.which) {
       case 1: // Left button
-        if (!HPK.presentation.isOnLastSlide()) {
-          HPK.presentation.gotoNextSlide();
-        } else {
-          HPK.presentation.exitPresentationMode();
-        }
+        HPK.presentation.gotoNextSlideOrEndPresentation();
         return false;
       case 3: // Right button
-        if (!HPK.presentation.isOnFirstSlide()) {
-          HPK.presentation.gotoPrevSlide();
-        } else {
-          HPK.presentation.exitPresentationMode();
-        }
+        HPK.presentation.gotoPrevSlideOrEndPresentation();
         return false;
     }
   },
@@ -189,6 +181,30 @@ HPK.Presentation.prototype = {
       this._slides[this._currentSlideIndex].hide();
       this._currentSlideIndex--;
       this._slides[this._currentSlideIndex].show();
+    }
+  },
+
+  /* If the document is in the presentation mode, moves to the next slide (if
+     there is any) or switches the document out of the presentation mode. */
+  gotoNextSlideOrEndPresentation: function() {
+    if (this._inPresentationMode) {
+      if (!this.isOnLastSlide()) {
+        this.gotoNextSlide();
+      } else {
+        this.exitPresentationMode();
+      }
+    }
+  },
+
+  /* If the document is in the presentation mode, moves to the previous slide
+    (if there is any) or switches the document out of the presentation mode. */
+  gotoPrevSlideOrEndPresentation: function() {
+    if (this._inPresentationMode) {
+      if (!this.isOnFirstSlide()) {
+        this.gotoPrevSlide();
+      } else {
+        this.exitPresentationMode();
+      }
     }
   },
 
