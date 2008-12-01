@@ -111,6 +111,41 @@ HPK.Presentation.prototype = {
     }
   },
 
+  /* Handles document "keypress" event. */
+  _documentKeypress: function(event) {
+    switch (event.which) {
+      case 13:  // Enter
+      case 32:  // Space
+      case 110: // "n"
+        HPK.presentation.gotoNextSlideOrEndPresentation();
+        return false;
+
+      case 8:   // Backspace
+      case 112: // "p"
+        HPK.presentation.gotoPrevSlideOrEndPresentation();
+        return false;
+
+      case 0:
+        switch (event.keyCode) {
+          case 34: // Page Down
+          case 39: // Right Arrow
+          case 40: // Down Arrow
+            HPK.presentation.gotoNextSlideOrEndPresentation();
+            return false;
+
+          case 33: // Page Up
+          case 37: // Left Arrow
+          case 38: // Up Arrow
+            HPK.presentation.gotoPrevSlideOrEndPresentation();
+            return false;
+
+          case 27: // ESC
+            HPK.presentation.exitPresentationMode();
+            return false;
+        }
+    }
+  },
+
   /* Switches document into the presentation mode. */
   enterPresentationMode: function() {
     if (this._inPresentationMode) { return; }
@@ -125,10 +160,7 @@ HPK.Presentation.prototype = {
     this._changeRulesMedium(this._screenRules, "screen", "projection");
     this._changeRulesMedium(this._projectionRules, "projection", "screen");
 
-    this._oldDocumentKeypressHandler = $(document).keypress(function() {
-      HPK.presentation.exitPresentationMode();
-    });
-
+    this._oldDocumentKeypressHandler = $(document).keypress(this._documentKeypress);
     this._oldDocumentClickHandler = $(document).click(this._documentClick);
 
     this._inPresentationMode = true;
