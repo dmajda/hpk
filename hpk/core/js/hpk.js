@@ -74,13 +74,13 @@ HPK.Presentation.prototype = {
       .attr("id", "presentation-mode-toggle")
       .attr("href", "#")
       .text("Run presentation")
-      .click(function(e) {
+      .click(function(event) {
         HPK.presentation.run();
 
         /* The following line makes sure that the $(document.click(...) handler
            that we setup in the "enterPresentationMode" will not catch the
            event. */
-        e.stopPropagation();
+        event.stopPropagation();
       })
     );
   },
