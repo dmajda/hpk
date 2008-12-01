@@ -116,8 +116,24 @@ HPK.Presentation.prototype = {
     this._oldDocumentKeypressHandler = $(document).keypress(function() {
       HPK.presentation.exitPresentationMode();
     });
-    this._oldDocumentClickHandler = $(document).click(function() {
-      HPK.presentation.exitPresentationMode();
+
+    this._oldDocumentClickHandler = $(document).click(function(event) {
+      switch (event.which) {
+        case 1: // Left button
+          if (!HPK.presentation.isOnLastSlide()) {
+            HPK.presentation.gotoNextSlide();
+          } else {
+            HPK.presentation.exitPresentationMode();
+          }
+          return false;
+        case 3: // Right button
+          if (!HPK.presentation.isOnFirstSlide()) {
+            HPK.presentation.gotoPrevSlide();
+          } else {
+            HPK.presentation.exitPresentationMode();
+          }
+          return false;
+      }
     });
 
     this._inPresentationMode = true;
@@ -139,6 +155,38 @@ HPK.Presentation.prototype = {
     $(document).click(this._oldDocumentClickHandler);
 
     this._inPresentationMode = false;
+  },
+
+  /* Are we on the last slide? */
+  isOnFirstSlide: function() {
+    return this._inPresentationMode
+      && this._currentSlideIndex == 0;
+  },
+
+  /* Are we on the last slide? */
+  isOnLastSlide: function() {
+    return this._inPresentationMode
+      && this._currentSlideIndex == this._slides.length - 1;
+  },
+
+  /* If the document is in the presentation mode, moves to the next slide (if
+     there is any). */
+  gotoNextSlide: function() {
+    if (this._inPresentationMode && !this.isOnLastSlide()) {
+      this._slides[this._currentSlideIndex].hide();
+      this._currentSlideIndex++;
+      this._slides[this._currentSlideIndex].show();
+    }
+  },
+
+  /* If the document is in the presentation mode, moves to the previous slide
+     (if there is any). */
+  gotoPrevSlide: function() {
+    if (this._inPresentationMode && this.isOnFirstSlide()) {
+      this._slides[this._currentSlideIndex].hide();
+      this._currentSlideIndex--;
+      this._slides[this._currentSlideIndex].show();
+    }
   },
 
   /* Runs the presentation (enters the presentation mode). */
