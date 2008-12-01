@@ -47,7 +47,7 @@ HPK.Presentation.prototype = {
     $("body").append($("<a>")
       .attr("id", "presentation-mode-toggle")
       .attr("href", "#")
-      .text("Run presentation")
+      .text(HPK.localizationStrings["runPresentation"])
       .click(function(event) {
         HPK.presentation.run();
 

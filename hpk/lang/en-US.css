@@ -1,0 +1,7 @@
+@media screen {
+  .slide .handout:before { content: "Notes:"; }
+}
+
+@media print {
+  .slide .handout:before { content: "Notes:"; }
+}

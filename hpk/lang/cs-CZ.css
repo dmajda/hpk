@@ -1,0 +1,7 @@
+@media screen {
+  .slide .handout:before { content: "Poznámky:"; }
+}
+
+@media print {
+  .slide .handout:before { content: "Poznámky:"; }
+}

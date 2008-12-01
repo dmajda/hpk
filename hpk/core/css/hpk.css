@@ -13,8 +13,6 @@
 
 @media screen {
   .layout { display: none; }
-  /* TODO: Localize following rule. */
-  .slide .handout:before { content: "Notes:"; }
 }
 
 @media print {
@@ -22,6 +20,4 @@
   .slide { page-break-inside: avoid; }
   .slide abbr { border-bottom: none; }
   .slide a[href]:after { content: " [" attr(href) "] "; }
-  /* TODO: Localize following rule. */
-  .slide .handout:before { content: "Notes:"; }
 }

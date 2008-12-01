@@ -3,8 +3,6 @@ These are the areas I intend to work on in the HTML Presentation Toolkit.
 Version 1.0
 -----------
 * Localization
-  * cs-CZ
-  * en-US
   * Automatic detection (probably based on lang/xml:lang attribute on <html>
     element), but overridable
 * Keyboard navigation
