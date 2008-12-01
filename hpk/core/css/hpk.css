@@ -1,8 +1,5 @@
 /* Based on http://www.opera.com/browser/tutorials/operashow/documentation/doc_stylesheets.dml */
 
-@media all {
-}
-
 @media projection {
   html, body, .presentation { height: 100%; margin: 0; padding: 0; }
   .layout { position: fixed; width: 100%; height: 100%; }
