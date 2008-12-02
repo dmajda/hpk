@@ -8,9 +8,11 @@
 @media projection {
   #run-presentation-link { display: none; }
 
-  .slide { padding: 6em 2em 2em 2em; }
+  body { font-size: 24pt; /* Twice normal size */ }
+
+  .slide { padding: 5em 2em 2em 2em; }
   .slide h1 {
-    position: absolute; top: 0; left: 0; right: 0; margin: 0; padding: .5em 1em;
+    position: absolute; top: 0; left: 0; right: 0; margin: 0; padding: .25em 1em;
     border-bottom: 2pt solid #408040;
     font-size: 200%;
     color: black; background-color: #e0ffe0;
