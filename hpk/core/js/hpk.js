@@ -16,7 +16,7 @@ HPK.Presentation = function() {
   this._screenRules = this._findMediaRules("screen");
   this._projectionRules = this._findMediaRules("projection");
 
-  this._injectRunPresentationLink();
+  this._createRunPresentationLink();
 }
 
 HPK.Presentation.prototype = {
@@ -42,8 +42,8 @@ HPK.Presentation.prototype = {
     return result;
   },
 
-  /* Injects the link that enables user to run the presentation into the HTML. */
-  _injectRunPresentationLink: function() {
+  /* Creates the link that enables user to run the presentation. */
+  _createRunPresentationLink: function() {
     $("body").append($("<a>")
       .attr("id", "run-presentation-link")
       .attr("href", "#")
