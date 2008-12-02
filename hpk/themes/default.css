@@ -6,10 +6,9 @@
 }
 
 @media projection {
-  #run-presentation-link { display: none; }
-  #current-slide-counter { position: fixed; right: 2em; bottom: 1em; font-size: 50%; color: gray; }
+  body { font-size: 24pt; }
 
-  body { font-size: 24pt; /* Twice normal size */ }
+  #current-slide-counter { position: fixed; right: 2em; bottom: 1em; font-size: 50%; color: gray; }
 
   .slide { padding: 5em 2em 2em 2em; }
   .slide h1 {
@@ -22,16 +21,12 @@
 
 @media screen {
   #run-presentation-link { display: block; position: fixed; top: 1em; right: 1em; }
-  #current-slide-counter { display: none; }
 
   .slide .handout { margin: 1em; padding: .5em 1em; background-color: #e0e0e0; }
   .slide .handout:before { display: block; font-weight: bold; }
 }
 
 @media print {
-  #run-presentation-link { display: none; }
-  #current-slide-counter { display: none; }
-
   .slide .handout { margin: 1em; padding: .5em 1em; background-color: #e0e0e0; }
   .slide .handout:before { display: block; font-weight: bold; }
 }
