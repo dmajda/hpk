@@ -6,7 +6,7 @@
 }
 
 @media projection {
-  #presentation-mode-toggle { display: none; }
+  #run-presentation-link { display: none; }
 
   .slide { padding: 6em 2em 2em 2em; }
   .slide h1 {
@@ -18,14 +18,14 @@
 }
 
 @media screen {
-  #presentation-mode-toggle { display: block; position: fixed; top: 1em; right: 1em; }
+  #run-presentation-link { display: block; position: fixed; top: 1em; right: 1em; }
 
   .slide .handout { margin: 1em; padding: .5em 1em; background-color: #e0e0e0; }
   .slide .handout:before { display: block; font-weight: bold; }
 }
 
 @media print {
-  #presentation-mode-toggle { display: none; }
+  #run-presentation-link { display: none; }
 
   .slide .handout { margin: 1em; padding: .5em 1em; background-color: #e0e0e0; }
   .slide .handout:before { display: block; font-weight: bold; }

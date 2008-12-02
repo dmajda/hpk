@@ -12,11 +12,11 @@ HPK.Presentation = function() {
 
   this._slides = $("div.presentation div.slide");
   this._currentSlideIndex = null;
-  this._inPresentationMode = false;
+  this._presenting = false;
   this._screenRules = this._findMediaRules("screen");
   this._projectionRules = this._findMediaRules("projection");
 
-  this._injectPresentationModeToggle();
+  this._injectRunPresentationLink();
 }
 
 HPK.Presentation.prototype = {
@@ -42,18 +42,17 @@ HPK.Presentation.prototype = {
     return result;
   },
 
-  /* Injects the presentation mode toggle element into the HTML. */
-  _injectPresentationModeToggle: function() {
+  /* Injects the link that enables user to run the presentation into the HTML. */
+  _injectRunPresentationLink: function() {
     $("body").append($("<a>")
-      .attr("id", "presentation-mode-toggle")
+      .attr("id", "run-presentation-link")
       .attr("href", "#")
       .text(HPK.localizationStrings["runPresentation"])
       .click(function(event) {
-        HPK.presentation.run();
+        HPK.presentation.beginPresentation();
 
         /* The following line makes sure that the $(document.click(...) handler
-           that we setup in the "enterPresentationMode" will not catch the
-           event. */
+           we setup in the "beginPresentation" will not catch the event. */
         event.stopPropagation();
       })
     );
@@ -114,20 +113,20 @@ HPK.Presentation.prototype = {
             return false;
 
           case 27: // ESC
-            HPK.presentation.exitPresentationMode();
+            HPK.presentation.stopPresentation();
             return false;
         }
     }
   },
 
-  /* Are we in the presentation mode? */
-  isInPresentationMode: function() {
-    return this._inPresentationMode;
+  /* Are we presenting now? */
+  isPresenting: function() {
+    return this._presenting;
   },
 
-  /* Switches document into the presentation mode. */
-  enterPresentationMode: function() {
-    if (this._inPresentationMode) { return; }
+  /* Begins the presentation. */
+  beginPresentation: function() {
+    if (this._presenting) { return; }
     if (this._slides.length == 0) { return; }
 
     this._slides.slice(1).hide();
@@ -139,12 +138,12 @@ HPK.Presentation.prototype = {
     this._oldDocumentKeypressHandler = $(document).keypress(this._documentKeypress);
     this._oldDocumentClickHandler = $(document).click(this._documentClick);
 
-    this._inPresentationMode = true;
+    this._presenting = true;
   },
 
-  /* Switches document out of the presentation mode. */
-  exitPresentationMode: function() {
-    if (!this._inPresentationMode) { return; }
+  /* Ends the presentation. */
+  endPresentation: function() {
+    if (!this._presenting) { return; }
 
     this._slides.show();
     this._currentSlideIndex = null;
@@ -155,68 +154,61 @@ HPK.Presentation.prototype = {
     $(document).keypress(this._oldDocumentKeypressHandler);
     $(document).click(this._oldDocumentClickHandler);
 
-    this._inPresentationMode = false;
+    this._presenting = false;
   },
 
   /* Are we on the last slide? */
   isOnFirstSlide: function() {
-    return this._inPresentationMode
+    return this._presenting
       && this._currentSlideIndex == 0;
   },
 
   /* Are we on the last slide? */
   isOnLastSlide: function() {
-    return this._inPresentationMode
+    return this._presenting
       && this._currentSlideIndex == this._slides.length - 1;
   },
 
-  /* If the document is in the presentation mode, moves to the next slide (if
-     there is any). */
+  /* If presenting, moves to the next slide (if there is any). */
   gotoNextSlide: function() {
-    if (this._inPresentationMode && !this.isOnLastSlide()) {
+    if (this._presenting && !this.isOnLastSlide()) {
       this._currentSlide().hide();
       this._currentSlideIndex++;
       this._currentSlide().show();
     }
   },
 
-  /* If the document is in the presentation mode, moves to the previous slide
-     (if there is any). */
+  /* If presenting, moves to the previous slide (if there is any). */
   gotoPrevSlide: function() {
-    if (this._inPresentationMode && !this.isOnFirstSlide()) {
+    if (this._presenting && !this.isOnFirstSlide()) {
       this._currentSlide().hide();
       this._currentSlideIndex--;
       this._currentSlide().show();
     }
   },
 
-  /* If the document is in the presentation mode, moves to the next slide (if
-     there is any) or switches the document out of the presentation mode. */
+  /* If presenting, moves to the next slide (if there is any) or ends the
+     presentation. */
   gotoNextSlideOrEndPresentation: function() {
-    if (this._inPresentationMode) {
+    if (this._presenting) {
       if (!this.isOnLastSlide()) {
         this.gotoNextSlide();
       } else {
-        this.exitPresentationMode();
+        this.endPresentation();
       }
     }
   },
 
-  /* If the document is in the presentation mode, moves to the previous slide
-    (if there is any) or switches the document out of the presentation mode. */
+  /* If presenting, moves to the previous slide (if there is any) or ends the
+     presentation. */
   gotoPrevSlideOrEndPresentation: function() {
-    if (this._inPresentationMode) {
+    if (this._presenting) {
       if (!this.isOnFirstSlide()) {
         this.gotoPrevSlide();
       } else {
-        this.exitPresentationMode();
+        this.endPresentation();
       }
     }
-  },
-
-  /* Runs the presentation (enters the presentation mode). */
-  run: function() {
-    this.enterPresentationMode();
   },
 }
 
