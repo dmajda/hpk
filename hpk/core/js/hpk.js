@@ -17,6 +17,7 @@ HPK.Presentation = function() {
   this._projectionRules = this._findMediaRules("projection");
 
   this._createRunPresentationLink();
+  this._createCurrentSlideCounter();
 }
 
 HPK.Presentation.prototype = {
@@ -56,6 +57,18 @@ HPK.Presentation.prototype = {
         event.stopPropagation();
       })
     );
+  },
+
+  /* Creates the current slide counter. */
+  _createCurrentSlideCounter: function() {
+    $("body").append($("<div>")
+      .attr("id", "current-slide-counter")
+    );
+  },
+
+  /* Updates the current slide counter. */
+  _updateCurrentSlideCounter: function() {
+    $("#current-slide-counter").text(this._currentSlideIndex + 1);
   },
 
   /* Changes CSS medium of given rules. */
@@ -131,6 +144,7 @@ HPK.Presentation.prototype = {
 
     this._slides.slice(1).hide();
     this._currentSlideIndex = 0;
+    this._updateCurrentSlideCounter();
 
     this._changeRulesMedium(this._screenRules, "screen", "projection");
     this._changeRulesMedium(this._projectionRules, "projection", "screen");
@@ -175,6 +189,7 @@ HPK.Presentation.prototype = {
       this._currentSlide().hide();
       this._currentSlideIndex++;
       this._currentSlide().show();
+      this._updateCurrentSlideCounter();
     }
   },
 
@@ -184,6 +199,7 @@ HPK.Presentation.prototype = {
       this._currentSlide().hide();
       this._currentSlideIndex--;
       this._currentSlide().show();
+      this._updateCurrentSlideCounter();
     }
   },
 

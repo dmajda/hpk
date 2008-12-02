@@ -2,9 +2,6 @@ These are the areas I intend to work on in the HTML Presentation Toolkit.
 
 Version 1.0
 -----------
-* Display slide number
-  * Use CSS counters? Need to investigate support and emulation
-    (http://www.opera.com/browser/tutorials/operashow/documentation/doc_stylesheets.dml)
 * "Goto" input box
 * Browser support
   * Safari (some recent version)
