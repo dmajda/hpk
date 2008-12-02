@@ -19,6 +19,8 @@ Version 1.0
   * Look at Google Docs
   * Maybe show some semi-transparent layer with arrows (just Unicode characters?)
   * Maybe some navigation controls
+  * Automatically run presentation when the browser is switched to full-screen?
+    (suggested by Marci)
 * Improve default skin
 * Localization
   * Automatic detection? Probably based on lang/xml:lang attribute on <html>
