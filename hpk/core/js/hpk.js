@@ -113,7 +113,7 @@ HPK.Presentation.prototype = {
             return false;
 
           case 27: // ESC
-            HPK.presentation.stopPresentation();
+            HPK.presentation.endPresentation();
             return false;
         }
     }
