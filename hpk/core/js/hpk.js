@@ -18,6 +18,7 @@ HPK.Presentation = function() {
 
   this._createRunPresentationLink();
   this._createCurrentSlideCounter();
+  this._createGotoBox();
 }
 
 HPK.Presentation.prototype = {
@@ -71,6 +72,36 @@ HPK.Presentation.prototype = {
     $("#current-slide-counter").text(this._currentSlideIndex + 1);
   },
 
+  /* Creates the "goto box", where the user can specify a slide number he/she
+     wants to jump at. */
+  _createGotoBox: function() {
+    $("body").append($("<input type='text'>")
+      .attr("id", "goto-box")
+      .keypress(function(event) {
+        switch (event.keyCode) {
+          case 13: // Enter
+            HPK.presentation.gotoSlide($(this).val() - 1);
+            HPK.presentation.hideGotoBox();
+            break;
+          case 27: // ESC
+            HPK.presentation.hideGotoBox();
+            break;
+        }
+        event.stopPropagation();
+      })
+    );
+  },
+
+  /* Shows, clears and focuses the "goto box". */
+  showGotoBox: function() {
+    $("#goto-box").val("").show().focus();
+  },
+
+  /* Hides the "goto box". */
+  hideGotoBox: function() {
+    $("#goto-box").hide();
+  },
+
   /* Changes CSS medium of given rules. */
   _changeRulesMedium: function(rules, fromMedium, toMedium) {
     for (var i = 0; i < rules.length; i++) {
@@ -109,6 +140,10 @@ HPK.Presentation.prototype = {
       case 8:   // Backspace
       case 112: // "p"
         HPK.presentation.gotoPrevSlideOrEndPresentation();
+        return false;
+
+      case 103: // "g"
+        HPK.presentation.showGotoBox();
         return false;
 
       case 0:
@@ -161,6 +196,7 @@ HPK.Presentation.prototype = {
 
     this._slides.show();
     this._currentSlideIndex = null;
+    this.hideGotoBox();
 
     this._changeRulesMedium(this._screenRules, "projection", "screen");
     this._changeRulesMedium(this._projectionRules, "screen", "projection");
@@ -224,6 +260,16 @@ HPK.Presentation.prototype = {
       } else {
         this.endPresentation();
       }
+    }
+  },
+
+  /* If presenting, moves to the slide with specified index (if there is any). */
+  gotoSlide: function(slideIndex) {
+    if (this._presenting && slideIndex >= 0 && slideIndex < this._slides.length) {
+      this._currentSlide().hide();
+      this._currentSlideIndex = slideIndex;
+      this._currentSlide().show();
+      this._updateCurrentSlideCounter();
     }
   },
 }
