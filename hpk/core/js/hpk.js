@@ -1,5 +1,5 @@
 /* HPK Namespace. */
-var HPK = {}
+var HPK = {};
 
 /* ===== Presentation ===== */
 
