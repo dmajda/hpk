@@ -24,7 +24,7 @@ HPK.Presentation = function() {
 HPK.Presentation.prototype = {
   /* Creates the link that enables user to run the presentation. */
   _createRunPresentationLink: function() {
-    $("body").append($("<a>")
+    $("body").append($("<a/>")
       .attr("id", "run-presentation-link")
       .attr("href", "#")
       .text(HPK.localizationStrings["runPresentation"])
@@ -40,7 +40,7 @@ HPK.Presentation.prototype = {
 
   /* Creates the current slide counter. */
   _createCurrentSlideCounter: function() {
-    $("body").append($("<div>")
+    $("body").append($("<div/>")
       .attr("id", "current-slide-counter")
     );
   },

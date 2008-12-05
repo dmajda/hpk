@@ -1,6 +1,6 @@
 body { font-size: 24pt; }
 
-#current-slide-counter { position: fixed; right: 2em; bottom: 1em; font-size: 50%; color: gray; }
+#current-slide-counter { position: fixed; _position: absolute; right: 2em; bottom: 1em; font-size: 50%; color: gray; }
 #goto-box { position: absolute; top: 0; left: 0; border: 1px solid black; }
 
 .slide { padding: 5em 2em 2em 2em; }
