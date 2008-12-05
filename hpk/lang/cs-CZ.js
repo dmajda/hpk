@@ -1,3 +1,3 @@
 HPK.localizationStrings = {
-  runPresentation: "Spustit prezentaci",
+  runPresentation: "Spustit prezentaci"
 }
