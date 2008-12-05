@@ -2,28 +2,28 @@ These are the areas I intend to work on in the HTML Presentation Toolkit.
 
 Version 1.0
 -----------
-* Browser support
-  * Safari 3.2+ (missing: keyboard navigation)
-  * IE 6/7+
-* Font sizes
-  * Allow explicit resizing using browser features or custom controls (suggested
-    by Met)
-  * Maybe use Opera's solution based on media queries and emulate them in
-    unsupported browsers?
-    (http://www.opera.com/browser/tutorials/operashow/documentation/doc_stylesheets.dml)
 * Linkable slides (suggested by Met)
   * URL like "presentation.html#slide15" should switch to presentation mode and
     go to slide 15
+* Improve default skin
+* Localization
+  * Automatic detection? Probably based on lang/xml:lang attribute on <html>
+    elemen, should be overridable
 * Better UI experience (suggested by Met)
   * Look at Google Docs
   * Maybe show some semi-transparent layer with arrows (just Unicode characters?)
   * Maybe some navigation controls
   * Automatically run presentation when the browser is switched to full-screen?
     (suggested by Marci)
-* Improve default skin
-* Localization
-  * Automatic detection? Probably based on lang/xml:lang attribute on <html>
-    elemen, should be overridable
+* Font sizes
+  * Allow explicit resizing using browser features or custom controls (suggested
+    by Met)
+  * Maybe use Opera's solution based on media queries and emulate them in
+    unsupported browsers?
+    (http://www.opera.com/browser/tutorials/operashow/documentation/doc_stylesheets.dml)
+* Finish better browser support
+  * Safari 3.2+ (missing: keyboard navigation)
+  * IE 6/7+ (missing: keyboard navigation, small bullets in presentation)
 * Sophisticated intro/example presentation
 * Project website
 
