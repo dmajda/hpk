@@ -5,7 +5,7 @@ body { font-size: 24pt; }
 
 .slide { padding: 5em 2em 2em 2em; }
 .slide h1 {
-  position: absolute; top: 0; left: 0; width: 100%; margin: 0; padding: .25em 1em;
+  position: absolute; top: 0; left: 0; right: 0; _width: 100%; margin: 0; padding: .25em 1em;
   border-bottom: 2pt solid #408040;
   font-size: 200%;
   color: black; background-color: #e0ffe0;
