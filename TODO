@@ -3,7 +3,7 @@ These are the areas I intend to work on in the HTML Presentation Toolkit.
 Version 1.0
 -----------
 * Browser support
-  * Safari (some recent version)
+  * Safari 3.2+ (missing: keyboard navigation)
   * IE 6/7+
 * Font sizes
   * Allow explicit resizing using browser features or custom controls (suggested

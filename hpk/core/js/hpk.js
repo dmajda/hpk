@@ -109,6 +109,16 @@ HPK.Presentation.prototype = {
       media.deleteMedium(fromMedium);
       media.appendMedium(toMedium);
     }
+
+    /* In Webikt, media changes are not applied immediately - we have to use a
+       little hackery. */
+    if ($.browser.safari) { // detects also Google Chrome
+      for (i = 0; i < document.styleSheets.length; i++) {
+        var styleSheet = document.styleSheets[i];
+        styleSheet.disabled = !styleSheet.disabled
+        styleSheet.disabled = !styleSheet.disabled
+      }
+    }
   },
 
   /* Returns current slide as jQuery object. */
