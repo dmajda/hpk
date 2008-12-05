@@ -13,8 +13,8 @@ HPK.Presentation = function() {
   this._slides = $("div.presentation div.slide");
   this._currentSlideIndex = null;
   this._presenting = false;
-  this._screenRules = this._findMediaRules("screen");
-  this._projectionRules = this._findMediaRules("projection");
+  this._screenStyleLinks = $("link[rel=stylesheet][media=screen]");
+  this._projectionStyleLinks = $("link[rel=stylesheet][media=projection]");
 
   this._createRunPresentationLink();
   this._createCurrentSlideCounter();
@@ -22,28 +22,6 @@ HPK.Presentation = function() {
 }
 
 HPK.Presentation.prototype = {
-  /* Finds CSS @media rules with given medium and returns them as an array. */
-  _findMediaRules: function(medium) {
-    result = [];
-    for (var i = 0; i < document.styleSheets.length; i++) {
-      var styleSheet = document.styleSheets[i];
-      for (var j = 0; j < styleSheet.cssRules.length; j++) {
-        var rule = styleSheet.cssRules[j];
-        if (!rule instanceof CSSMediaRule) {
-          continue;
-        }
-        if (rule.media.length != 1) {
-          continue;
-        }
-
-        if (rule.media.item(0) == medium) {
-          result.push(rule);
-        }
-      }
-    }
-    return result;
-  },
-
   /* Creates the link that enables user to run the presentation. */
   _createRunPresentationLink: function() {
     $("body").append($("<a>")
@@ -100,25 +78,6 @@ HPK.Presentation.prototype = {
   /* Hides the "goto box". */
   hideGotoBox: function() {
     $("#goto-box").hide();
-  },
-
-  /* Changes CSS medium of given rules. */
-  _changeRulesMedium: function(rules, fromMedium, toMedium) {
-    for (var i = 0; i < rules.length; i++) {
-      var media = rules[i].media;
-      media.deleteMedium(fromMedium);
-      media.appendMedium(toMedium);
-    }
-
-    /* In Webikt, media changes are not applied immediately - we have to use a
-       little hackery. */
-    if ($.browser.safari) { // detects also Google Chrome
-      for (i = 0; i < document.styleSheets.length; i++) {
-        var styleSheet = document.styleSheets[i];
-        styleSheet.disabled = !styleSheet.disabled
-        styleSheet.disabled = !styleSheet.disabled
-      }
-    }
   },
 
   /* Returns current slide as jQuery object. */
@@ -191,8 +150,13 @@ HPK.Presentation.prototype = {
     this._currentSlideIndex = 0;
     this._updateCurrentSlideCounter();
 
-    this._changeRulesMedium(this._screenRules, "screen", "projection");
-    this._changeRulesMedium(this._projectionRules, "projection", "screen");
+    this._screenStyleLinks.attr("media", "projection")
+    this._projectionStyleLinks.attr("media", "screen");
+    /* WebKit does not reflect all changes and needs a little help. */
+    if ($.browser.safari) { // Detects Google Chrome too.
+      this._screenStyleLinks.attr("disabled", "disabled");
+      this._projectionStyleLinks.removeAttr("disabled");
+    }
 
     this._oldDocumentKeypressHandler = $(document).keypress(this._documentKeypress);
     this._oldDocumentClickHandler = $(document).click(this._documentClick);
@@ -208,8 +172,13 @@ HPK.Presentation.prototype = {
     this._currentSlideIndex = null;
     this.hideGotoBox();
 
-    this._changeRulesMedium(this._screenRules, "projection", "screen");
-    this._changeRulesMedium(this._projectionRules, "screen", "projection");
+    this._screenStyleLinks.attr("media", "screen");
+    this._projectionStyleLinks.attr("media", "projection");
+    /* WebKit does not reflect all changes and needs a little help. */
+    if ($.browser.safari) { // Detects Google Chrome too.
+      this._screenStyleLinks.removeAttr("disabled");
+      this._projectionStyleLinks.attr("disabled", "disabled");
+    }
 
     $(document).keypress(this._oldDocumentKeypressHandler);
     $(document).click(this._oldDocumentClickHandler);
