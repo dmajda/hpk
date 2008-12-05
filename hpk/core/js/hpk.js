@@ -158,8 +158,8 @@ HPK.Presentation.prototype = {
       this._projectionStyleLinks.removeAttr("disabled");
     }
 
-    this._oldDocumentKeypressHandler = $(document).keypress(this._documentKeypress);
-    this._oldDocumentClickHandler = $(document).click(this._documentClick);
+    $(document).keypress(this._documentKeypress);
+    $(document).click(this._documentClick);
 
     this._presenting = true;
   },
@@ -180,8 +180,8 @@ HPK.Presentation.prototype = {
       this._projectionStyleLinks.attr("disabled", "disabled");
     }
 
-    $(document).keypress(this._oldDocumentKeypressHandler);
-    $(document).click(this._oldDocumentClickHandler);
+    $(document).unbind("keypress", this._documentKeypress);
+    $(document).unbind("click", this._documentClick);
 
     this._presenting = false;
   },
