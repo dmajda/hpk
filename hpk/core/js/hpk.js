@@ -281,7 +281,7 @@ HPK.Presentation.prototype = {
       this._currentSlide().show();
       this._updateCurrentSlideCounter();
     }
-  },
+  }
 }
 
 /* ===== Let's roll... ===== */
