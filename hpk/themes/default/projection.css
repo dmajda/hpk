@@ -4,11 +4,16 @@ body { font-size: 24pt; }
 #goto-box { position: absolute; top: 0; left: 0; border: 1px solid black; }
 #navigation {
   position: absolute; left: 50%; margin-left: -140px; width: 280px; bottom: 5%; height: 80px;
-  text-align: center; font-size: 200%;
-  color: silver; background: url("navigation.png") top center;
+  background: url("navigation.png") top center;
 }
-#navigation a { color: silver; text-decoration: none; }
-#navigation a:hover { color: white; }
+#navigation a { display: block; position: absolute; }
+#navigation a:focus { outline: none; }
+#prev-slide { top: 17px; left: 30px; width: 39px; height: 46px; background-image: url("prev-slide.png"); }
+#prev-slide:hover { background-image: url("prev-slide-hover.png"); }
+#next-slide { top: 17px; right: 30px; width: 39px; height: 46px; background-image: url("next-slide.png"); }
+#next-slide:hover { background-image: url("next-slide-hover.png"); }
+#slide-list { top: 19px; left: 114px; width: 53px; height: 42px; background-image: url("slide-list.png"); }
+#slide-list:hover { background-image: url("slide-list-hover.png"); }
 
 .slide { padding: 5em 2em 2em 2em; }
 .slide h1 {

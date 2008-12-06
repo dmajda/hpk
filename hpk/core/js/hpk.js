@@ -58,16 +58,22 @@ HPK.Navigation = function() {
     .attr("id", "navigation")
     .append($("<a/>")
       .attr("href", "#")
-      .html("&laquo;")
+      .attr("id", "prev-slide")
       .click(function(event) {
         HPK.presentation.gotoPrevSlide();
         event.stopPropagation();
       })
     )
-    .append("&nbsp;&nbsp;")
     .append($("<a/>")
       .attr("href", "#")
-      .html("&raquo;")
+      .attr("id", "slide-list")
+      .click(function(event) {
+        alert("TODO")
+      })
+    )
+    .append($("<a/>")
+      .attr("href", "#")
+      .attr("id", "next-slide")
       .click(function(event) {
         HPK.presentation.gotoNextSlide();
         event.stopPropagation();
