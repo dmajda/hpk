@@ -108,7 +108,7 @@ HPK.Navigation.prototype = {
   /* Shows the navigation. */
   show: function() {
     this.visible = true;
-    this._element.fadeIn("normal");
+    this._element.css("opacity", "0").show().fadeTo("normal", 0.8);
     this.touch();
   },
 
