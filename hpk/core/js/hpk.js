@@ -205,24 +205,24 @@ HPK.Presentation.prototype = {
       && this._currentSlideIndex == this._slides.length - 1;
   },
 
-  /* If presenting, moves to the next slide (if there is any). */
-  gotoNextSlide: function() {
-    if (this._presenting && !this.isOnLastSlide()) {
+  /* If presenting, moves to the slide with specified index (if there is any). */
+  gotoSlide: function(slideIndex) {
+    if (this._presenting && slideIndex >= 0 && slideIndex < this._slides.length) {
       this._currentSlide().hide();
-      this._currentSlideIndex++;
+      this._currentSlideIndex = slideIndex;
       this._currentSlide().show();
       this.currentSlideCounter.update(this._currentSlideIndex);
     }
   },
 
+  /* If presenting, moves to the next slide (if there is any). */
+  gotoNextSlide: function() {
+    this.gotoSlide(this._currentSlideIndex + 1);
+  },
+
   /* If presenting, moves to the previous slide (if there is any). */
   gotoPrevSlide: function() {
-    if (this._presenting && !this.isOnFirstSlide()) {
-      this._currentSlide().hide();
-      this._currentSlideIndex--;
-      this._currentSlide().show();
-      this.currentSlideCounter.update(this._currentSlideIndex);
-    }
+    this.gotoSlide(this._currentSlideIndex - 1);
   },
 
   /* If presenting, moves to the next slide (if there is any) or ends the
@@ -246,16 +246,6 @@ HPK.Presentation.prototype = {
       } else {
         this.endPresentation();
       }
-    }
-  },
-
-  /* If presenting, moves to the slide with specified index (if there is any). */
-  gotoSlide: function(slideIndex) {
-    if (this._presenting && slideIndex >= 0 && slideIndex < this._slides.length) {
-      this._currentSlide().hide();
-      this._currentSlideIndex = slideIndex;
-      this._currentSlide().show();
-      this.currentSlideCounter.update(this._currentSlideIndex);
     }
   }
 }
