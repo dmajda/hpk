@@ -272,8 +272,7 @@ $(document).ready(function() {
 
       if (!HPK.presentation.isPresenting() && isFullscreen) {
         HPK.presentation.beginPresentation();
-      }
-      if (HPK.presentation.isPresenting() && !isFullscreen) {
+      } else if (HPK.presentation.isPresenting() && !isFullscreen) {
         HPK.presentation.endPresentation();
       }
     });
