@@ -81,7 +81,8 @@ HPK.Navigation = function() {
     })
     .mousemove(function(event) {
       event.stopPropagation();
-    });
+    })
+    .corner("round 15px");
   $("body").append(this._element);
   this._hideTimer = null;
 }
