@@ -2,7 +2,6 @@ These are the areas I intend to work on in the HTML Presentation Toolkit.
 
 Version 1.0
 -----------
-* Improve default skin
 * Better UI experience (suggested by Met)
   * Look at Google Docs
   * Maybe show some semi-transparent layer with arrows (just Unicode characters?)
@@ -15,6 +14,7 @@ Version 1.0
   * Maybe use Opera's solution based on media queries and emulate them in
     unsupported browsers?
     (http://www.opera.com/browser/tutorials/operashow/documentation/doc_stylesheets.dml)
+* Improve default skin
 * Finish better browser support
   * Safari 3.2+ (missing: keyboard navigation)
   * IE 6/7+ (missing: keyboard navigation, small bullets in presentation)
