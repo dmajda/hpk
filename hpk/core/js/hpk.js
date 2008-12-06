@@ -257,5 +257,11 @@ HPK.Presentation.prototype = {
 
 $(document).ready(function() {
   HPK.presentation = new HPK.Presentation();
+
+  var matches = document.location.hash.match(/^#slide-(\d+)$/);
+  if (matches) {
+    HPK.presentation.beginPresentation();
+    HPK.presentation.gotoSlide(parseInt(matches[1]) - 1);
+  }
 });
 

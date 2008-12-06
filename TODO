@@ -2,9 +2,6 @@ These are the areas I intend to work on in the HTML Presentation Toolkit.
 
 Version 1.0
 -----------
-* Linkable slides (suggested by Met)
-  * URL like "presentation.html#slide15" should switch to presentation mode and
-    go to slide 15
 * Improve default skin
 * Localization
   * Automatic detection? Probably based on lang/xml:lang attribute on <html>
