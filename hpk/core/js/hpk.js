@@ -258,6 +258,23 @@ HPK.Presentation.prototype = {
 $(document).ready(function() {
   HPK.presentation = new HPK.Presentation();
 
+  if (!$.browser.opera) {
+    $(window).bind("resize", function() {
+      /* In IE, the document dimensions are actually larger than the screen
+         dimensions in the fullscreen view. On the other hand, Firefox has
+         a small bar at the top. */
+      var isFullscreen = $(document).width() >= screen.width
+        && screen.height - $(document).height() <= 10;
+
+      if (!HPK.presentation.isPresenting() && isFullscreen) {
+        HPK.presentation.beginPresentation();
+      }
+      if (HPK.presentation.isPresenting() && !isFullscreen) {
+        HPK.presentation.endPresentation();
+      }
+    });
+  }
+
   var matches = document.location.hash.match(/^#slide-(\d+)$/);
   if (matches) {
     HPK.presentation.beginPresentation();
