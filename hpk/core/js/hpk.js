@@ -350,18 +350,40 @@ $(document).ready(function() {
   HPK.presentation = new HPK.Presentation();
 
   if (!$.browser.opera) {
+    /* These variables will be closed over by the resize handler bellow, so they
+       will behave like static variables from its point of view. */
+    var oldWindowWidth = $(window).width();
+    var oldWindowHeight = $(window).height();
+
     $(window).bind("resize", function() {
-      /* In IE, the document dimensions are actually larger than the screen
-         dimensions in the fullscreen view. On the other hand, Firefox has
-         a small bar at the top. */
-      var isFullscreen = $(document).width() >= screen.width
-        && screen.height - $(document).height() <= 10;
+      var windowWidth = $(window).width();
+      var windowHeight = $(window).height();
+
+      /* This is obviously an optimization, but we do it mainly because IE
+         triggers the resize handler much more often than it should, which
+         results to switching from and to the presentation again in certain
+         situations (such as clicking the "Run presentation" link or at the
+         end of the presentation). */
+      if (windowWidth == oldWindowWidth && windowHeight == oldWindowHeight) {
+        return;
+      }
+
+      /* In IE, the window height is actually larger than the screen height
+         in the fullscreen mode, but it does not count scrollbar width into
+         the window width. Firefox has a small bar at the top even in the
+         fullscreen mode. As a result, fullscreen mode detection must be a bit
+         tolerant. Browser world is a mess... */
+      var isFullscreen = screen.width - windowWidth <= 20
+        && screen.height - windowHeight <= 10;
 
       if (!HPK.presentation.isPresenting() && isFullscreen) {
         HPK.presentation.beginPresentation();
       } else if (HPK.presentation.isPresenting() && !isFullscreen) {
         HPK.presentation.endPresentation();
       }
+
+      oldWindowWidth = windowWidth;
+      oldWindowHeight = windowHeight;
     });
   }
 
