@@ -53,6 +53,7 @@ HPK.CurrentSlideCounter.prototype = {
 
 /* Creates a new Navigation object. */
 HPK.Navigation = function() {
+  this.visible = false;
   this._element = $("<div/>")
     .attr("id", "navigation")
     .append($("<a/>")
@@ -71,29 +72,50 @@ HPK.Navigation = function() {
         HPK.presentation.gotoNextSlide();
         event.stopPropagation();
       })
-    );
+    )
+    .mouseover(function() {
+      HPK.presentation.navigation.clearHideTimer();
+    })
+    .mouseout(function() {
+      HPK.presentation.navigation.touch();
+    })
+    .mousemove(function(event) {
+      event.stopPropagation();
+    });
   $("body").append(this._element);
   this._hideTimer = null;
 }
 
 HPK.Navigation.prototype = {
 
-  /* Shows the navigation. */
-  show: function() {
-    this._element.fadeIn("normal");
-
+  /* Clears the current hiding timer. */
+  clearHideTimer: function() {
     if (this._hideTimer) {
       clearTimeout(this._hideTimer);
+      this._hideTimer = null;
     }
+  },
+
+  /* Clears the current hiding timer and creates a new one. */
+  touch: function() {
+    this.clearHideTimer();
     this._hideTimer = setTimeout(function() {
       HPK.presentation.navigation.hide();
-    }, 1000);
+    }, 5000);
+  },
+
+  /* Shows the navigation. */
+  show: function() {
+    this.visible = true;
+    this._element.fadeIn("normal");
+    this.touch();
   },
 
   /* Hides the navigation. */
   hide: function() {
-    this._hideTimer = null;
+    this.clearHideTimer();
     this._element.fadeOut("normal");
+    this.visible = false;
   }
 }
 
@@ -143,7 +165,17 @@ HPK.Presentation.prototype = {
 
   /* Handles document "mousemove" event. */
   _documentMousemove: function(event) {
-    HPK.presentation.navigation.show();
+    if (event.pageY >= 0.8 * $(document).height()) {
+      if (!HPK.presentation.navigation.visible) {
+        HPK.presentation.navigation.show();
+      } else {
+        HPK.presentation.navigation.touch();
+      }
+    } else {
+      if (HPK.presentation.navigation.visible) {
+        HPK.presentation.navigation.hide();
+      }
+    }
   },
 
   /* Handles document "click" event. */

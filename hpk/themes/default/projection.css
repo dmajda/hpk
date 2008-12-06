@@ -3,7 +3,7 @@ body { font-size: 24pt; }
 #current-slide-counter { position: fixed; _position: absolute; right: 2em; bottom: 1em; font-size: 50%; color: gray; }
 #goto-box { position: absolute; top: 0; left: 0; border: 1px solid black; }
 #navigation {
-  position: absolute; left: 40%; right: 40%; bottom: .5em; height: 1.5em;
+  position: absolute; left: 40%; right: 40%; top: 85%; height: 10%;
   text-align: center; font-size: 200%;
   color: silver; background-color: black;
 }
