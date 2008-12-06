@@ -34,6 +34,21 @@ HPK.GotoBox.prototype = {
   }
 }
 
+/* ===== CurrentSlideCounter ===== */
+
+/* Creates a new CurrentSlideCounter object. */
+HPK.CurrentSlideCounter = function() {
+  this._element = $("<div/>").attr("id", "current-slide-counter");
+  $("body").append(this._element);
+}
+
+HPK.CurrentSlideCounter.prototype = {
+  /* Updates the current slide counter. */
+  update: function(currentSlideIndex) {
+    this._element.text(currentSlideIndex + 1);
+  }
+}
+
 /* ===== Presentation ===== */
 
 /* Creates a new Presentation object and injects the presentation mode toggle
@@ -50,8 +65,8 @@ HPK.Presentation = function() {
   this._projectionStyleLinks = $("link[rel=stylesheet][media=projection]");
 
   this._createRunPresentationLink();
-  this._createCurrentSlideCounter();
 
+  this.currentSlideCounter = new HPK.CurrentSlideCounter;
   this.gotoBox = new HPK.GotoBox();
 }
 
@@ -70,18 +85,6 @@ HPK.Presentation.prototype = {
         event.stopPropagation();
       })
     );
-  },
-
-  /* Creates the current slide counter. */
-  _createCurrentSlideCounter: function() {
-    $("body").append($("<div/>")
-      .attr("id", "current-slide-counter")
-    );
-  },
-
-  /* Updates the current slide counter. */
-  _updateCurrentSlideCounter: function() {
-    $("#current-slide-counter").text(this._currentSlideIndex + 1);
   },
 
   /* Returns current slide as jQuery object. */
@@ -152,7 +155,7 @@ HPK.Presentation.prototype = {
 
     this._slides.slice(1).hide();
     this._currentSlideIndex = 0;
-    this._updateCurrentSlideCounter();
+    this.currentSlideCounter.update(this._currentSlideIndex);
 
     this._screenStyleLinks.attr("media", "projection")
     this._projectionStyleLinks.attr("media", "screen");
@@ -208,7 +211,7 @@ HPK.Presentation.prototype = {
       this._currentSlide().hide();
       this._currentSlideIndex++;
       this._currentSlide().show();
-      this._updateCurrentSlideCounter();
+      this.currentSlideCounter.update(this._currentSlideIndex);
     }
   },
 
@@ -218,7 +221,7 @@ HPK.Presentation.prototype = {
       this._currentSlide().hide();
       this._currentSlideIndex--;
       this._currentSlide().show();
-      this._updateCurrentSlideCounter();
+      this.currentSlideCounter.update(this._currentSlideIndex);
     }
   },
 
@@ -252,7 +255,7 @@ HPK.Presentation.prototype = {
       this._currentSlide().hide();
       this._currentSlideIndex = slideIndex;
       this._currentSlide().show();
-      this._updateCurrentSlideCounter();
+      this.currentSlideCounter.update(this._currentSlideIndex);
     }
   }
 }
