@@ -1,6 +1,39 @@
 /* HPK Namespace. */
 var HPK = {};
 
+/* ===== GotoBox ===== */
+
+/* Creates a new GotoBox object. */
+HPK.GotoBox = function() {
+  this._element = $("<input type='text'>")
+    .attr("id", "goto-box")
+    .keypress(function(event) {
+      switch (event.keyCode) {
+        case 13: // Enter
+          HPK.presentation.gotoSlide($(this).val() - 1);
+          HPK.presentation.gotoBox.hide();
+          break;
+        case 27: // ESC
+          HPK.presentation.gotoBox.hide();
+          break;
+      }
+      event.stopPropagation();
+    });
+  $("body").append(this._element);
+}
+
+HPK.GotoBox.prototype = {
+  /* Shows, clears and focuses the goto box. */
+  show: function() {
+    this._element.val("").show().focus();
+  },
+
+  /* Hides the goto box. */
+  hide: function() {
+    this._element.hide();
+  }
+}
+
 /* ===== Presentation ===== */
 
 /* Creates a new Presentation object and injects the presentation mode toggle
@@ -18,7 +51,8 @@ HPK.Presentation = function() {
 
   this._createRunPresentationLink();
   this._createCurrentSlideCounter();
-  this._createGotoBox();
+
+  this.gotoBox = new HPK.GotoBox();
 }
 
 HPK.Presentation.prototype = {
@@ -48,36 +82,6 @@ HPK.Presentation.prototype = {
   /* Updates the current slide counter. */
   _updateCurrentSlideCounter: function() {
     $("#current-slide-counter").text(this._currentSlideIndex + 1);
-  },
-
-  /* Creates the "goto box", where the user can specify a slide number he/she
-     wants to jump at. */
-  _createGotoBox: function() {
-    $("body").append($("<input type='text'>")
-      .attr("id", "goto-box")
-      .keypress(function(event) {
-        switch (event.keyCode) {
-          case 13: // Enter
-            HPK.presentation.gotoSlide($(this).val() - 1);
-            HPK.presentation.hideGotoBox();
-            break;
-          case 27: // ESC
-            HPK.presentation.hideGotoBox();
-            break;
-        }
-        event.stopPropagation();
-      })
-    );
-  },
-
-  /* Shows, clears and focuses the "goto box". */
-  showGotoBox: function() {
-    $("#goto-box").val("").show().focus();
-  },
-
-  /* Hides the "goto box". */
-  hideGotoBox: function() {
-    $("#goto-box").hide();
   },
 
   /* Returns current slide as jQuery object. */
@@ -112,7 +116,7 @@ HPK.Presentation.prototype = {
         return false;
 
       case 103: // "g"
-        HPK.presentation.showGotoBox();
+        HPK.presentation.gotoBox.show();
         return false;
 
       case 0:
@@ -170,7 +174,7 @@ HPK.Presentation.prototype = {
 
     this._slides.show();
     this._currentSlideIndex = null;
-    this.hideGotoBox();
+    this.gotoBox.hide();
 
     this._screenStyleLinks.attr("media", "screen");
     this._projectionStyleLinks.attr("media", "projection");
