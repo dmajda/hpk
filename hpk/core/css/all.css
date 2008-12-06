@@ -1,5 +1,4 @@
 /* Based on http://www.opera.com/browser/tutorials/operashow/documentation/doc_stylesheets.dml */
 
-#current-slide-counter { display: none; }
-
-.layout { display: none; }
+#goto-box { display: none; }
+#navigation { display: none; }

@@ -2,9 +2,9 @@
 
 #run-presentation-link { display: none; }
 #current-slide-counter { display: none; }
-#goto-box { display: none; }
-#navigation { display: none; }
+
 .layout { display: none; }
+
 .slide { page-break-inside: avoid; }
 .slide abbr { border-bottom: none; }
 .slide a[href]:after { content: " [" attr(href) "] "; }
