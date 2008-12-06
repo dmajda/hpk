@@ -58,7 +58,7 @@ HPK.Navigation = function() {
     .attr("id", "navigation")
     .append($("<a/>")
       .attr("href", "#")
-      .html("&laquo")
+      .html("&laquo;")
       .click(function(event) {
         HPK.presentation.gotoPrevSlide();
         event.stopPropagation();
