@@ -3,6 +3,7 @@
 html, body, .presentation { height: 100%; margin: 0; padding: 0; }
 #run-presentation-link { display: none; }
 #goto-box { display: none; }
+#navigation { display: none; }
 /* The "position: fixed" declaration is required here because of Opera, but
    stupid IE6 can't deal with it, so we supply a special declaration for it. */
 .layout { position: fixed; _position: absolute; width: 100%; height: 100%; }

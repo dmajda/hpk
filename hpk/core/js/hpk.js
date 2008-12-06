@@ -49,6 +49,54 @@ HPK.CurrentSlideCounter.prototype = {
   }
 }
 
+/* ===== Navigation ===== */
+
+/* Creates a new Navigation object. */
+HPK.Navigation = function() {
+  this._element = $("<div/>")
+    .attr("id", "navigation")
+    .append($("<a/>")
+      .attr("href", "#")
+      .html("&laquo")
+      .click(function(event) {
+        HPK.presentation.gotoPrevSlide();
+        event.stopPropagation();
+      })
+    )
+    .append("&nbsp;&nbsp;")
+    .append($("<a/>")
+      .attr("href", "#")
+      .html("&raquo;")
+      .click(function(event) {
+        HPK.presentation.gotoNextSlide();
+        event.stopPropagation();
+      })
+    );
+  $("body").append(this._element);
+  this._hideTimer = null;
+}
+
+HPK.Navigation.prototype = {
+
+  /* Shows the navigation. */
+  show: function() {
+    this._element.show();
+
+    if (this._hideTimer) {
+      clearTimeout(this._hideTimer);
+    }
+    this._hideTimer = setTimeout(function() {
+      HPK.presentation.navigation.hide();
+    }, 1000);
+  },
+
+  /* Hides the navigation. */
+  hide: function() {
+    this._hideTimer = null;
+    this._element.hide();
+  }
+}
+
 /* ===== Presentation ===== */
 
 /* Creates a new Presentation object and injects the presentation mode toggle
@@ -68,6 +116,7 @@ HPK.Presentation = function() {
 
   this.currentSlideCounter = new HPK.CurrentSlideCounter;
   this.gotoBox = new HPK.GotoBox();
+  this.navigation = new HPK.Navigation();
 }
 
 HPK.Presentation.prototype = {
@@ -90,6 +139,11 @@ HPK.Presentation.prototype = {
   /* Returns current slide as jQuery object. */
   _currentSlide: function() {
     return this._slides.slice(this._currentSlideIndex, this._currentSlideIndex + 1);
+  },
+
+  /* Handles document "mousemove" event. */
+  _documentMousemove: function(event) {
+    HPK.presentation.navigation.show();
   },
 
   /* Handles document "click" event. */
@@ -165,8 +219,9 @@ HPK.Presentation.prototype = {
       this._projectionStyleLinks.removeAttr("disabled");
     }
 
-    $(document).keypress(this._documentKeypress);
+    $(document).mousemove(this._documentMousemove);
     $(document).click(this._documentClick);
+    $(document).keypress(this._documentKeypress);
 
     this._presenting = true;
   },
@@ -187,8 +242,9 @@ HPK.Presentation.prototype = {
       this._projectionStyleLinks.attr("disabled", "disabled");
     }
 
-    $(document).unbind("keypress", this._documentKeypress);
+    $(document).unbind("mousemove", this._documentMousemove);
     $(document).unbind("click", this._documentClick);
+    $(document).unbind("keypress", this._documentKeypress);
 
     this._presenting = false;
   },
