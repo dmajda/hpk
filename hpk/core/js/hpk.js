@@ -80,7 +80,7 @@ HPK.Navigation.prototype = {
 
   /* Shows the navigation. */
   show: function() {
-    this._element.show();
+    this._element.fadeIn("normal");
 
     if (this._hideTimer) {
       clearTimeout(this._hideTimer);
@@ -93,7 +93,7 @@ HPK.Navigation.prototype = {
   /* Hides the navigation. */
   hide: function() {
     this._hideTimer = null;
-    this._element.hide();
+    this._element.fadeOut("normal");
   }
 }
 
