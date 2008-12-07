@@ -87,7 +87,6 @@ HPK.Navigation = function(presentation) {
 }
 
 HPK.Navigation.prototype = {
-
   /* Is the navigation visible? */
   isVisible: function() {
     return this._visible;
@@ -385,4 +384,3 @@ $(document).ready(function() {
     HPK.presentation.gotoSlide(parseInt(matches[1]) - 1);
   }
 });
-
