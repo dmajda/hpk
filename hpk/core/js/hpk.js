@@ -5,8 +5,7 @@ var HPK = {};
 
 /* Creates a new GotoBox object. */
 HPK.GotoBox = function() {
-  this._element = $("<input type='text'>")
-    .attr("id", "goto-box")
+  this._element = $("<input type='text' id='goto-box'>")
     .keypress(function(event) {
       switch (event.keyCode) {
         case 13: // Enter
@@ -38,7 +37,7 @@ HPK.GotoBox.prototype = {
 
 /* Creates a new CurrentSlideCounter object. */
 HPK.CurrentSlideCounter = function() {
-  this._element = $("<div/>").attr("id", "current-slide-counter");
+  this._element = $("<div id='current-slide-counter' />");
   $("body").append(this._element);
 }
 
@@ -54,26 +53,19 @@ HPK.CurrentSlideCounter.prototype = {
 /* Creates a new Navigation object. */
 HPK.Navigation = function() {
   this.visible = false;
-  this._element = $("<div/>")
-    .attr("id", "navigation")
-    .append($("<a/>")
-      .attr("href", "#")
-      .attr("id", "prev-slide")
+  this._element = $("<div id='navigation' />")
+    .append($("<a href='#' id='prev-slide' />")
       .click(function(event) {
         HPK.presentation.gotoPrevSlide();
         event.stopPropagation();
       })
     )
-    .append($("<a/>")
-      .attr("href", "#")
-      .attr("id", "slide-list")
+    .append($("<a href='#' id='slide-list' />")
       .click(function(event) {
         alert("TODO")
       })
     )
-    .append($("<a/>")
-      .attr("href", "#")
-      .attr("id", "next-slide")
+    .append($("<a href='#' id='next-slide' />")
       .click(function(event) {
         HPK.presentation.gotoNextSlide();
         event.stopPropagation();
@@ -150,9 +142,7 @@ HPK.Presentation = function() {
 HPK.Presentation.prototype = {
   /* Creates the link that enables user to run the presentation. */
   _createRunPresentationLink: function() {
-    $("body").append($("<a/>")
-      .attr("id", "run-presentation-link")
-      .attr("href", "#")
+    $("body").append($("<a href='#' id='run-presentation-link' />")
       .text(HPK.localizationStrings["runPresentation"])
       .click(function(event) {
         HPK.presentation.beginPresentation();
