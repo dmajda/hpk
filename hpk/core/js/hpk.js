@@ -138,9 +138,9 @@ HPK.Presentation = function() {
 
   this._createRunPresentationLink();
 
-  this.currentSlideCounter = new HPK.CurrentSlideCounter;
-  this.gotoBox = new HPK.GotoBox(this);
-  this.navigation = new HPK.Navigation();
+  this._currentSlideCounter = new HPK.CurrentSlideCounter;
+  this._gotoBox = new HPK.GotoBox(this);
+  this._navigation = new HPK.Navigation();
 }
 
 HPK.Presentation.prototype = {
@@ -176,7 +176,7 @@ HPK.Presentation.prototype = {
 
     this._slides.slice(1).hide();
     this._currentSlideIndex = 0;
-    this.currentSlideCounter.update(this._currentSlideIndex);
+    this._currentSlideCounter.update(this._currentSlideIndex);
 
     this._screenStyleLinks.attr("media", "projection")
     this._projectionStyleLinks.attr("media", "screen");
@@ -190,14 +190,14 @@ HPK.Presentation.prototype = {
 
     $(document).mousemove(function(event) {
       if (event.pageY >= 0.8 * $(document).height()) {
-        if (!that.navigation.isVisible()) {
-          that.navigation.show();
+        if (!that._navigation.isVisible()) {
+          that._navigation.show();
         } else {
-          that.navigation.touch();
+          that._navigation.touch();
         }
       } else {
-        if (that.navigation.isVisible()) {
-          that.navigation.hide();
+        if (that._navigation.isVisible()) {
+          that._navigation.hide();
         }
       }
     });
@@ -227,7 +227,7 @@ HPK.Presentation.prototype = {
           return false;
 
         case 103: // "g"
-          that.gotoBox.show();
+          that._gotoBox.show();
           return false;
 
         case 0:
@@ -260,7 +260,7 @@ HPK.Presentation.prototype = {
 
     this._slides.show();
     this._currentSlideIndex = null;
-    this.gotoBox.hide();
+    this._gotoBox.hide();
 
     this._screenStyleLinks.attr("media", "screen");
     this._projectionStyleLinks.attr("media", "projection");
@@ -295,7 +295,7 @@ HPK.Presentation.prototype = {
       this._currentSlide().hide();
       this._currentSlideIndex = slideIndex;
       this._currentSlide().show();
-      this.currentSlideCounter.update(this._currentSlideIndex);
+      this._currentSlideCounter.update(this._currentSlideIndex);
     }
   },
 
