@@ -125,10 +125,6 @@ HPK.Navigation.prototype = {
 /* Creates a new Presentation object and injects the presentation mode toggle
    element into the HTML. */
 HPK.Presentation = function() {
-  /* Opera has its own presentation capabilities, we do not have to help it.
-     See http://www.opera.com/browser/tutorials/operashow/. */
-  if ($.browser.opera) { return; }
-
   this._slides = $("div.presentation div.slide");
   this._currentSlideIndex = null;
   this._presenting = false;
@@ -336,45 +332,47 @@ HPK.Presentation.prototype = {
 /* ===== Let's roll... ===== */
 
 $(document).ready(function() {
+  /* Opera has its own presentation capabilities, we do not have to help it.
+     See http://www.opera.com/browser/tutorials/operashow/. */
+  if ($.browser.opera) { return; }
+
   HPK.presentation = new HPK.Presentation();
 
-  if (!$.browser.opera) {
-    /* These variables will be closed over by the resize handler bellow, so they
-       will behave like static variables from its point of view. */
-    var oldWindowWidth = $(window).width();
-    var oldWindowHeight = $(window).height();
+  /* These variables will be closed over by the resize handler bellow, so they
+     will behave like static variables from its point of view. */
+  var oldWindowWidth = $(window).width();
+  var oldWindowHeight = $(window).height();
 
-    $(window).bind("resize", function() {
-      var windowWidth = $(window).width();
-      var windowHeight = $(window).height();
+  $(window).bind("resize", function() {
+    var windowWidth = $(window).width();
+    var windowHeight = $(window).height();
 
-      /* This is obviously an optimization, but we do it mainly because IE
-         triggers the resize handler much more often than it should, which
-         results to switching from and to the presentation again in certain
-         situations (such as clicking the "Run presentation" link or at the
-         end of the presentation). */
-      if (windowWidth == oldWindowWidth && windowHeight == oldWindowHeight) {
-        return;
-      }
+    /* This is obviously an optimization, but we do it mainly because IE
+       triggers the resize handler much more often than it should, which
+       results to switching from and to the presentation again in certain
+       situations (such as clicking the "Run presentation" link or at the
+       end of the presentation). */
+    if (windowWidth == oldWindowWidth && windowHeight == oldWindowHeight) {
+      return;
+    }
 
-      /* In IE, the window height is actually larger than the screen height
-         in the fullscreen mode, but it does not count scrollbar width into
-         the window width. Firefox has a small bar at the top even in the
-         fullscreen mode. As a result, fullscreen mode detection must be a bit
-         tolerant. Browser world is a mess... */
-      var isFullscreen = screen.width - windowWidth <= 20
-        && screen.height - windowHeight <= 10;
+    /* In IE, the window height is actually larger than the screen height
+       in the fullscreen mode, but it does not count scrollbar width into
+       the window width. Firefox has a small bar at the top even in the
+       fullscreen mode. As a result, fullscreen mode detection must be a bit
+       tolerant. Browser world is a mess... */
+    var isFullscreen = screen.width - windowWidth <= 20
+      && screen.height - windowHeight <= 10;
 
-      if (!HPK.presentation.isPresenting() && isFullscreen) {
-        HPK.presentation.beginPresentation();
-      } else if (HPK.presentation.isPresenting() && !isFullscreen) {
-        HPK.presentation.endPresentation();
-      }
+    if (!HPK.presentation.isPresenting() && isFullscreen) {
+      HPK.presentation.beginPresentation();
+    } else if (HPK.presentation.isPresenting() && !isFullscreen) {
+      HPK.presentation.endPresentation();
+    }
 
-      oldWindowWidth = windowWidth;
-      oldWindowHeight = windowHeight;
-    });
-  }
+    oldWindowWidth = windowWidth;
+    oldWindowHeight = windowHeight;
+  });
 
   var matches = document.location.hash.match(/^#slide-(\d+)$/);
   if (matches) {
