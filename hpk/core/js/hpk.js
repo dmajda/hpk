@@ -53,7 +53,7 @@ HPK.CurrentSlideCounter.prototype = {
 
 /* Creates a new Navigation object. */
 HPK.Navigation = function(presentation) {
-  this.visible = false;
+  this._visible = false;
   var that = this;
   this._element = $("<div id='navigation' />")
     .append($("<a href='#' id='prev-slide' />")
@@ -88,6 +88,11 @@ HPK.Navigation = function(presentation) {
 
 HPK.Navigation.prototype = {
 
+  /* Is the navigation visible? */
+  isVisible: function() {
+    return this._visible;
+  },
+
   /* Clears the current hiding timer. */
   clearHideTimer: function() {
     if (this._hideTimer) {
@@ -107,7 +112,7 @@ HPK.Navigation.prototype = {
 
   /* Shows the navigation. */
   show: function() {
-    this.visible = true;
+    this._visible = true;
     this._element.css("opacity", "0").show().fadeTo("normal", 0.8);
     this.touch();
   },
@@ -116,7 +121,7 @@ HPK.Navigation.prototype = {
   hide: function() {
     this.clearHideTimer();
     this._element.fadeOut("normal");
-    this.visible = false;
+    this._visible = false;
   }
 }
 
@@ -185,13 +190,13 @@ HPK.Presentation.prototype = {
 
     $(document).mousemove(function(event) {
       if (event.pageY >= 0.8 * $(document).height()) {
-        if (!that.navigation.visible) {
+        if (!that.navigation.isVisible()) {
           that.navigation.show();
         } else {
           that.navigation.touch();
         }
       } else {
-        if (that.navigation.visible) {
+        if (that.navigation.isVisible()) {
           that.navigation.hide();
         }
       }
