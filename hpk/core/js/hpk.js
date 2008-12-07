@@ -4,16 +4,17 @@ var HPK = {};
 /* ===== GotoBox ===== */
 
 /* Creates a new GotoBox object. */
-HPK.GotoBox = function() {
+HPK.GotoBox = function(presentation) {
+  var that = this;
   this._element = $("<input type='text' id='goto-box'>")
     .keypress(function(event) {
       switch (event.keyCode) {
         case 13: // Enter
-          HPK.presentation.gotoSlide($(this).val() - 1);
-          HPK.presentation.gotoBox.hide();
+          presentation.gotoSlide($(this).val() - 1);
+          that.hide();
           break;
         case 27: // ESC
-          HPK.presentation.gotoBox.hide();
+          that.hide();
           break;
       }
       event.stopPropagation();
@@ -51,12 +52,13 @@ HPK.CurrentSlideCounter.prototype = {
 /* ===== Navigation ===== */
 
 /* Creates a new Navigation object. */
-HPK.Navigation = function() {
+HPK.Navigation = function(presentation) {
   this.visible = false;
+  var that = this;
   this._element = $("<div id='navigation' />")
     .append($("<a href='#' id='prev-slide' />")
       .click(function(event) {
-        HPK.presentation.gotoPrevSlide();
+        presentation.gotoPrevSlide();
         event.stopPropagation();
       })
     )
@@ -67,15 +69,15 @@ HPK.Navigation = function() {
     )
     .append($("<a href='#' id='next-slide' />")
       .click(function(event) {
-        HPK.presentation.gotoNextSlide();
+        presentation.gotoNextSlide();
         event.stopPropagation();
       })
     )
     .mouseover(function() {
-      HPK.presentation.navigation.clearHideTimer();
+      that.clearHideTimer();
     })
     .mouseout(function() {
-      HPK.presentation.navigation.touch();
+      that.touch();
     })
     .mousemove(function(event) {
       event.stopPropagation();
@@ -97,8 +99,9 @@ HPK.Navigation.prototype = {
   /* Clears the current hiding timer and creates a new one. */
   touch: function() {
     this.clearHideTimer();
+    var that = this;
     this._hideTimer = setTimeout(function() {
-      HPK.presentation.navigation.hide();
+      that.hide();
     }, 5000);
   },
 
@@ -135,17 +138,18 @@ HPK.Presentation = function() {
   this._createRunPresentationLink();
 
   this.currentSlideCounter = new HPK.CurrentSlideCounter;
-  this.gotoBox = new HPK.GotoBox();
+  this.gotoBox = new HPK.GotoBox(this);
   this.navigation = new HPK.Navigation();
 }
 
 HPK.Presentation.prototype = {
   /* Creates the link that enables user to run the presentation. */
   _createRunPresentationLink: function() {
+    var that = this;
     $("body").append($("<a href='#' id='run-presentation-link' />")
       .text(HPK.localizationStrings["runPresentation"])
       .click(function(event) {
-        HPK.presentation.beginPresentation();
+        that.beginPresentation();
 
         /* The following line makes sure that the $(document.click(...) handler
            we setup in the "beginPresentation" will not catch the event. */
@@ -157,72 +161,6 @@ HPK.Presentation.prototype = {
   /* Returns current slide as jQuery object. */
   _currentSlide: function() {
     return this._slides.slice(this._currentSlideIndex, this._currentSlideIndex + 1);
-  },
-
-  /* Handles document "mousemove" event. */
-  _documentMousemove: function(event) {
-    if (event.pageY >= 0.8 * $(document).height()) {
-      if (!HPK.presentation.navigation.visible) {
-        HPK.presentation.navigation.show();
-      } else {
-        HPK.presentation.navigation.touch();
-      }
-    } else {
-      if (HPK.presentation.navigation.visible) {
-        HPK.presentation.navigation.hide();
-      }
-    }
-  },
-
-  /* Handles document "click" event. */
-  _documentClick: function(event) {
-    switch (event.which) {
-      case 1: // Left button
-        HPK.presentation.gotoNextSlideOrEndPresentation();
-        return false;
-      case 3: // Right button
-        HPK.presentation.gotoPrevSlideOrEndPresentation();
-        return false;
-    }
-  },
-
-  /* Handles document "keypress" event. */
-  _documentKeypress: function(event) {
-    switch (event.which) {
-      case 13:  // Enter
-      case 32:  // Space
-      case 110: // "n"
-        HPK.presentation.gotoNextSlideOrEndPresentation();
-        return false;
-
-      case 8:   // Backspace
-      case 112: // "p"
-        HPK.presentation.gotoPrevSlideOrEndPresentation();
-        return false;
-
-      case 103: // "g"
-        HPK.presentation.gotoBox.show();
-        return false;
-
-      case 0:
-        switch (event.keyCode) {
-          case 34: // Page Down
-          case 39: // Right Arrow
-          case 40: // Down Arrow
-            HPK.presentation.gotoNextSlideOrEndPresentation();
-            return false;
-
-          case 33: // Page Up
-          case 37: // Left Arrow
-          case 38: // Up Arrow
-            HPK.presentation.gotoPrevSlideOrEndPresentation();
-            return false;
-
-          case 27: // ESC
-            HPK.presentation.endPresentation();
-            return false;
-        }
-    }
   },
 
   /* Are we presenting now? */
@@ -247,9 +185,70 @@ HPK.Presentation.prototype = {
       this._projectionStyleLinks.removeAttr("disabled");
     }
 
-    $(document).mousemove(this._documentMousemove);
-    $(document).click(this._documentClick);
-    $(document).keypress(this._documentKeypress);
+    var that = this;
+
+    $(document).mousemove(function(event) {
+      if (event.pageY >= 0.8 * $(document).height()) {
+        if (!that.navigation.visible) {
+          that.navigation.show();
+        } else {
+          that.navigation.touch();
+        }
+      } else {
+        if (that.navigation.visible) {
+          that.navigation.hide();
+        }
+      }
+    });
+
+    $(document).click(function(event) {
+      switch (event.which) {
+        case 1: // Left button
+          that.gotoNextSlideOrEndPresentation();
+          return false;
+        case 3: // Right button
+          that.gotoPrevSlideOrEndPresentation();
+          return false;
+      }
+    });
+
+    $(document).keypress(function(event) {
+      switch (event.which) {
+        case 13:  // Enter
+        case 32:  // Space
+        case 110: // "n"
+          that.gotoNextSlideOrEndPresentation();
+          return false;
+
+        case 8:   // Backspace
+        case 112: // "p"
+          that.gotoPrevSlideOrEndPresentation();
+          return false;
+
+        case 103: // "g"
+          that.gotoBox.show();
+          return false;
+
+        case 0:
+          switch (event.keyCode) {
+            case 34: // Page Down
+            case 39: // Right Arrow
+            case 40: // Down Arrow
+              that.gotoNextSlideOrEndPresentation();
+              return false;
+
+            case 33: // Page Up
+            case 37: // Left Arrow
+            case 38: // Up Arrow
+              that.gotoPrevSlideOrEndPresentation();
+              return false;
+
+            case 27: // ESC
+              that.endPresentation();
+              return false;
+          }
+      }
+    });
 
     this._presenting = true;
   },
