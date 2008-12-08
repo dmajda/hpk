@@ -8,12 +8,12 @@ body { font-size: 24pt; }
 }
 #navigation a { display: block; position: absolute; }
 #navigation a:focus { outline: none; }
-#prev-slide { top: 17px; left: 30px; width: 39px; height: 46px; background-image: url("prev-slide.png"); }
-#prev-slide:hover { background-image: url("prev-slide-hover.png"); }
-#next-slide { top: 17px; right: 30px; width: 39px; height: 46px; background-image: url("next-slide.png"); }
-#next-slide:hover { background-image: url("next-slide-hover.png"); }
-#slide-list { top: 19px; left: 114px; width: 53px; height: 42px; background-image: url("slide-list.png"); }
-#slide-list:hover { background-image: url("slide-list-hover.png"); }
+#prev-slide-link { top: 17px; left: 30px; width: 39px; height: 46px; background-image: url("prev-slide-link.png"); }
+#prev-slide-link:hover { background-image: url("prev-slide-link-hover.png"); }
+#next-slide-link { top: 17px; right: 30px; width: 39px; height: 46px; background-image: url("next-slide-link.png"); }
+#next-slide-link:hover { background-image: url("next-slide-link-hover.png"); }
+#slide-list-link { top: 19px; left: 114px; width: 53px; height: 42px; background-image: url("slide-list-link.png"); }
+#slide-list-link:hover { background-image: url("slide-list-link-hover.png"); }
 
 .slide { padding: 5em 2em 2em 2em; }
 .slide h1 {
