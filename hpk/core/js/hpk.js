@@ -49,10 +49,42 @@ HPK.CurrentSlideCounter.prototype = {
   }
 }
 
+/* ===== SlideList ===== */
+
+/* Creates a new SlideList object. */
+HPK.SlideList = function(presentation, slides) {
+  var list = $("<ol />")
+  var that = this;
+  slides.each(function(i) {
+    list.append($("<li />").append($("<a href='#'>")
+      .text($(this).find("h1").text())
+      .click(function(event) {
+        presentation.gotoSlide(i);
+        that.hide();
+        event.stopPropagation();
+      })
+    ));
+  });
+  this._element = $("<div id='slide-list' />").append(list);
+  $("body").append(this._element);
+}
+
+HPK.SlideList.prototype = {
+  /* Shows the slide list. */
+  show: function() {
+    this._element.css("opacity", "0").show().fadeTo("fast", 0.8);
+  },
+
+  /* Hides the slide list. */
+  hide: function() {
+    this._element.fadeOut("fast");
+  }
+}
+
 /* ===== Navigation ===== */
 
 /* Creates a new Navigation object. */
-HPK.Navigation = function(presentation) {
+HPK.Navigation = function(presentation, slideList) {
   this._visible = false;
   var that = this;
   this._element = $("<div id='navigation' />")
@@ -66,7 +98,8 @@ HPK.Navigation = function(presentation) {
     .append($("<a href='#' id='slide-list-link' />")
       .attr("title", HPK.localizationStrings["slideListLinkTitle"])
       .click(function(event) {
-        alert("TODO")
+        slideList.show();
+        event.stopPropagation();
       })
     )
     .append($("<a href='#' id='next-slide-link' />")
@@ -142,7 +175,8 @@ HPK.Presentation = function() {
 
   this._currentSlideCounter = new HPK.CurrentSlideCounter;
   this._gotoBox = new HPK.GotoBox(this);
-  this._navigation = new HPK.Navigation();
+  this._slideList = new HPK.SlideList(this, this._slides);
+  this._navigation = new HPK.Navigation(this, this._slideList);
 }
 
 HPK.Presentation.prototype = {
@@ -263,6 +297,7 @@ HPK.Presentation.prototype = {
     this._slides.show();
     this._currentSlideIndex = null;
     this._gotoBox.hide();
+    this._slideList.hide();
 
     this._screenStyleLinks.attr("media", "screen");
     this._projectionStyleLinks.attr("media", "projection");

@@ -2,6 +2,14 @@ body { font-size: 24pt; }
 
 #current-slide-counter { position: fixed; _position: absolute; right: 2em; bottom: 1em; font-size: 50%; color: gray; }
 #goto-box { position: absolute; top: 0; left: 0; border: 1px solid black; }
+#slide-list {
+  position: absolute; left: 25%; right: 25%; top: 10%;
+  padding: 0 1em;
+  color: gray; background-color: black;
+}
+#slide-list a { text-decoration: none; color: #c0c0c0; }
+#slide-list a:hover { color: white; }
+#slide-list a:focus { outline: none; }
 #navigation {
   position: absolute; left: 50%; margin-left: -140px; width: 280px; bottom: 5%; height: 80px;
   background: url("navigation.png") top center;
