@@ -269,9 +269,9 @@ HPK.Presentation.prototype = {
       this._projectionStyleLinks.attr("disabled", "disabled");
     }
 
-    $(document).unbind("mousemove", this._documentMousemove);
-    $(document).unbind("click", this._documentClick);
-    $(document).unbind("keypress", this._documentKeypress);
+    $(document).unbind("mousemove");
+    $(document).unbind("click");
+    $(document).unbind("keypress");
 
     this._presenting = false;
   },
