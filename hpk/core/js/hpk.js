@@ -57,17 +57,20 @@ HPK.Navigation = function(presentation) {
   var that = this;
   this._element = $("<div id='navigation' />")
     .append($("<a href='#' id='prev-slide-link' />")
+      .attr("title", HPK.localizationStrings["prevSlideLinkTitle"])
       .click(function(event) {
         presentation.gotoPrevSlide();
         event.stopPropagation();
       })
     )
     .append($("<a href='#' id='slide-list-link' />")
+      .attr("title", HPK.localizationStrings["slideListLinkTitle"])
       .click(function(event) {
         alert("TODO")
       })
     )
     .append($("<a href='#' id='next-slide-link' />")
+      .attr("title", HPK.localizationStrings["nextSlideLinkTitle"])
       .click(function(event) {
         presentation.gotoNextSlide();
         event.stopPropagation();
