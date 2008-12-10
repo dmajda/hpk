@@ -150,7 +150,7 @@ HPK.Presentation.prototype = {
   _createRunPresentationLink: function() {
     var that = this;
     $("body").append($("<a href='#' id='run-presentation-link' />")
-      .text(HPK.localizationStrings["runPresentation"])
+      .text(HPK.localizationStrings["runPresentationLinkText"])
       .click(function(event) {
         that.beginPresentation();
 

@@ -1,6 +1,6 @@
 HPK.localizationStrings = {
   /* "Run presentation" link */
-  runPresentation: "Spustit prezentaci",
+  runPresentationLinkText: "Spustit prezentaci",
 
   /* Presentation navigation */
   prevSlideLinkTitle: "Předchozí snímek",
