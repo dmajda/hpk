@@ -5,5 +5,8 @@ HPK.localizationStrings = {
   /* Presentation navigation */
   prevSlideLinkTitle: "Previous slide",
   nextSlideLinkTitle: "Next slide",
-  slideListLinkTitle: "Slide list"
+  slideListLinkTitle: "Slide list",
+
+  /* Slide list "Close" link */
+  closeSlideListLinkText: "Close"
 }

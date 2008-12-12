@@ -9,6 +9,7 @@ body { font-size: 24pt; }
 #slide-list .body a { text-decoration: none; color: #c0c0c0; }
 #slide-list .body a:hover { color: white; }
 #slide-list .body a:focus { outline: none; }
+#close-slide-list-link { display: block; margin-right: .5em; text-align: right; font-size: 50%; }
 
 #navigation { position: absolute; left: 50%; margin-left: -140px; width: 280px; bottom: 5%; }
 #navigation .body { height: 40px; }

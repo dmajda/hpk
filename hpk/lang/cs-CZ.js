@@ -5,5 +5,8 @@ HPK.localizationStrings = {
   /* Presentation navigation */
   prevSlideLinkTitle: "Předchozí snímek",
   nextSlideLinkTitle: "Následující snímek",
-  slideListLinkTitle: "Seznam snímků"
+  slideListLinkTitle: "Seznam snímků",
+
+  /* Slide list "Close" link */
+  closeSlideListLinkText: "Zavřít"
 }

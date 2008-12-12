@@ -87,7 +87,16 @@ HPK.SlideList = function(presentation, slides) {
       })
     ));
   });
-  this._element = $("<div id='slide-list' />").append(list).boxify();
+  this._element = $("<div id='slide-list' />")
+    .append(list)
+    .append($("<div id='close-slide-list-link'/>").append($("<a href='#' />")
+      .text(HPK.localizationStrings["closeSlideListLinkText"])
+      .click(function(event) {
+        that.hide();
+        event.stopPropagation();
+      })
+    ))
+    .boxify();
   $("body").append(this._element);
 }
 
