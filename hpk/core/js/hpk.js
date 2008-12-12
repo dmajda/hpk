@@ -117,7 +117,14 @@ HPK.SlideList = function(presentation, slides) {
 HPK.SlideList.prototype = {
   /* Shows the slide list. */
   show: function() {
-    this._element.css("opacity", "0").show().fadeTo("fast", 0.8);
+    this._element
+      .css(
+        "top",
+        ($("body").outerHeight() - this._element.outerHeight()) / 2 + "px"
+      )
+      .css("opacity", "0")
+      .show()
+      .fadeTo("fast", 0.8);
     this._focusTrap.focus();
   },
 
