@@ -1,6 +1,28 @@
 /* HPK Namespace. */
 var HPK = {};
 
+/* ===== Utilities ===== */
+
+jQuery.fn.boxify = function() {
+  return this.each(function(index) {
+    return jQuery(this)
+      .addClass("box")
+      .wrapInner("<div class='body' />")
+      .prepend("<div class='header'>"
+        + "<div class='header-left'>"
+        + "<div class='header-right'>"
+        + "<div class='header-inner'>"
+        + "</div></div></div></div>"
+      )
+      .append("<div class='footer'>"
+        + "<div class='footer-left'>"
+        + "<div class='footer-right'>"
+        + "<div class='footer-inner'>"
+        + "</div></div></div></div>"
+      );
+  });
+}
+
 /* ===== GotoBox ===== */
 
 /* Creates a new GotoBox object. */
@@ -65,7 +87,7 @@ HPK.SlideList = function(presentation, slides) {
       })
     ));
   });
-  this._element = $("<div id='slide-list' />").append(list);
+  this._element = $("<div id='slide-list' />").append(list).boxify();
   $("body").append(this._element);
 }
 
@@ -117,7 +139,8 @@ HPK.Navigation = function(presentation, slideList) {
     })
     .mousemove(function(event) {
       event.stopPropagation();
-    });
+    })
+    .boxify();
   $("body").append(this._element);
   this._hideTimer = null;
 }
