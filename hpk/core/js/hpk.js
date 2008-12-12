@@ -29,8 +29,8 @@ jQuery.fn.boxify = function() {
 HPK.GotoBox = function(presentation) {
   var that = this;
   this._element = $("<input type='text' id='goto-box'>")
-    .keypress(function(event) {
-      switch (event.keyCode) {
+    .keydown(function(event) {
+      switch (event.which) {
         case 13: // Enter
           presentation.gotoSlide($(this).val() - 1);
           that.hide();
@@ -91,8 +91,8 @@ HPK.SlideList = function(presentation, slides) {
   });
 
   this._focusTrap = $("<input type='text' class='focus-trap'>")
-    .keypress(function(event) {
-      if (event.keyCode == 27) { // ESC
+    .keydown(function(event) {
+      if (event.which == 27) { // ESC
         that.hide();
         return false;
       } else {
@@ -298,13 +298,11 @@ HPK.Presentation.prototype = {
 
     $(document).keypress(function(event) {
       switch (event.which) {
-        case 13:  // Enter
         case 32:  // Space
         case 110: // "n"
           that.gotoNextSlideOrEndPresentation();
           return false;
 
-        case 8:   // Backspace
         case 112: // "p"
           that.gotoPrevSlideOrEndPresentation();
           return false;
@@ -312,29 +310,28 @@ HPK.Presentation.prototype = {
         case 103: // "g"
           that._gotoBox.show();
           return false;
+      }
+    });
 
-        case 27: // ESC (IE)
-          that.endPresentation();
+    $(document).keydown(function(event) {
+      switch (event.which) {
+        case 13: // Enter
+        case 34: // Page Down
+        case 39: // Right Arrow
+        case 40: // Down Arrow
+          that.gotoNextSlideOrEndPresentation();
           return false;
 
-        case 0:
-          switch (event.keyCode) {
-            case 34: // Page Down
-            case 39: // Right Arrow
-            case 40: // Down Arrow
-              that.gotoNextSlideOrEndPresentation();
-              return false;
+        case 8:  // Backspace
+        case 33: // Page Up
+        case 37: // Left Arrow
+        case 38: // Up Arrow
+          that.gotoPrevSlideOrEndPresentation();
+          return false;
 
-            case 33: // Page Up
-            case 37: // Left Arrow
-            case 38: // Up Arrow
-              that.gotoPrevSlideOrEndPresentation();
-              return false;
-
-            case 27: // ESC (Gecko)
-              that.endPresentation();
-              return false;
-          }
+        case 27: // ESC
+          that.endPresentation();
+          return false;
       }
     });
 
@@ -361,6 +358,7 @@ HPK.Presentation.prototype = {
     $(document).unbind("mousemove");
     $(document).unbind("click");
     $(document).unbind("keypress");
+    $(document).unbind("keydown");
 
     this._presenting = false;
   },
