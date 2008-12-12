@@ -448,12 +448,13 @@ $(document).ready(function() {
     }
 
     /* In IE, the window height is actually larger than the screen height
-       in the fullscreen mode, but it does not count scrollbar width into
-       the window width. Firefox has a small bar at the top even in the
-       fullscreen mode. As a result, fullscreen mode detection must be a bit
-       tolerant. Browser world is a mess... */
-    var isFullscreen = screen.width - windowWidth <= 20
-      && screen.height - windowHeight <= 10;
+       in the fullscreen mode, but it does not count scrollbar width into the
+       window width. As a result, fullscreen mode detection must be a bit
+       tolerant. Firefox 3+ can detect fullscreen mode by itself. */
+    var isFullscreen = $.browser.mozilla
+      ? window.fullScreen
+      : screen.width - windowWidth <= 20
+        && screen.height - windowHeight <= 20;
 
     if (!HPK.presentation.isPresenting() && isFullscreen) {
       HPK.presentation.beginPresentation();
