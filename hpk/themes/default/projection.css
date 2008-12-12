@@ -6,7 +6,7 @@ input.focus-trap { position: absolute; top: -10000px; left: -10000px; width: 0; 
 #goto-box { position: absolute; top: 0; left: 0; border: 1px solid black; }
 
 #slide-list { position: absolute; left: 25%; right: 25%; top: 10%; }
-#slide-list .body ol { margin: .25em; }
+#slide-list .body ol { margin: .25em; padding-left: 1.5em; }
 #slide-list .body a { text-decoration: none; color: #c0c0c0; }
 #slide-list .body a:hover { color: white; }
 #slide-list .body a:focus { outline: none; }

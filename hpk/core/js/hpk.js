@@ -80,7 +80,7 @@ HPK.SlideList = function(presentation, slides) {
 
   var list = $("<ol />")
   slides.each(function(i) {
-    list.append($("<li />").append($("<a href='#'>")
+    list.append($("<li />").append($("<a href='#' />")
       .text($(this).find("h1").text())
       .click(function(event) {
         presentation.gotoSlide(i);
@@ -101,7 +101,7 @@ HPK.SlideList = function(presentation, slides) {
     });
   this._element = $("<div id='slide-list' />")
     .append(list)
-    .append($("<div id='close-slide-list-link'/>").append($("<a href='#' />")
+    .append($("<div id='close-slide-list-link' />").append($("<a href='#' />")
       .text(HPK.localizationStrings["closeSlideListLinkText"])
       .click(function(event) {
         that.hide();
