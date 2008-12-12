@@ -131,6 +131,11 @@ HPK.SlideList.prototype = {
   /* Hides the slide list. */
   hide: function() {
     this._element.fadeOut("fast");
+  },
+
+  /* Hides the slide list immediately (without the fade effect). */
+  hideWithoutFade: function() {
+    this._element.hide();
   }
 }
 
@@ -210,6 +215,13 @@ HPK.Navigation.prototype = {
   hide: function() {
     this.clearHideTimer();
     this._element.fadeOut("normal");
+    this._visible = false;
+  },
+
+  /* Hides the navigation immediately (without the fade effect). */
+  hideWithoutFade: function() {
+    this.clearHideTimer();
+    this._element.hide();
     this._visible = false;
   }
 }
@@ -352,7 +364,8 @@ HPK.Presentation.prototype = {
     this._slides.show();
     this._currentSlideIndex = null;
     this._gotoBox.hide();
-    this._slideList.hide();
+    this._slideList.hideWithoutFade();
+    this._navigation.hideWithoutFade();
 
     this._screenStyleLinks.attr("media", "screen");
     this._projectionStyleLinks.attr("media", "projection");
