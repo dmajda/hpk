@@ -75,8 +75,9 @@ HPK.CurrentSlideCounter.prototype = {
 
 /* Creates a new SlideList object. */
 HPK.SlideList = function(presentation, slides) {
-  var list = $("<ol />")
   var that = this;
+
+  var list = $("<ol />")
   slides.each(function(i) {
     list.append($("<li />").append($("<a href='#'>")
       .text($(this).find("h1").text())
@@ -87,6 +88,14 @@ HPK.SlideList = function(presentation, slides) {
       })
     ));
   });
+
+  this._focusTrap = $("<input type='text' class='focus-trap'>")
+    .keypress(function(event) {
+      if (event.keyCode == 27) { // ESC
+        that.hide();
+        return false;
+      }
+    });
   this._element = $("<div id='slide-list' />")
     .append(list)
     .append($("<div id='close-slide-list-link'/>").append($("<a href='#' />")
@@ -96,7 +105,9 @@ HPK.SlideList = function(presentation, slides) {
         event.stopPropagation();
       })
     ))
+    .append(this._focusTrap)
     .boxify();
+
   $("body").append(this._element);
 }
 
@@ -104,6 +115,7 @@ HPK.SlideList.prototype = {
   /* Shows the slide list. */
   show: function() {
     this._element.css("opacity", "0").show().fadeTo("fast", 0.8);
+    this._focusTrap.focus();
   },
 
   /* Hides the slide list. */
