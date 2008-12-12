@@ -34,12 +34,13 @@ HPK.GotoBox = function(presentation) {
         case 13: // Enter
           presentation.gotoSlide($(this).val() - 1);
           that.hide();
-          break;
+          return false;
         case 27: // ESC
           that.hide();
-          break;
+          return false;
+        default:
+          event.stopPropagation();
       }
-      event.stopPropagation();
     });
   $("body").append(this._element);
 }
@@ -84,7 +85,7 @@ HPK.SlideList = function(presentation, slides) {
       .click(function(event) {
         presentation.gotoSlide(i);
         that.hide();
-        event.stopPropagation();
+        return false;
       })
     ));
   });
@@ -94,6 +95,8 @@ HPK.SlideList = function(presentation, slides) {
       if (event.keyCode == 27) { // ESC
         that.hide();
         return false;
+      } else {
+        event.stopPropagation();
       }
     });
   this._element = $("<div id='slide-list' />")
@@ -102,7 +105,7 @@ HPK.SlideList = function(presentation, slides) {
       .text(HPK.localizationStrings["closeSlideListLinkText"])
       .click(function(event) {
         that.hide();
-        event.stopPropagation();
+        return false;
       })
     ))
     .append(this._focusTrap)
@@ -135,21 +138,21 @@ HPK.Navigation = function(presentation, slideList) {
       .attr("title", HPK.localizationStrings["prevSlideLinkTitle"])
       .click(function(event) {
         presentation.gotoPrevSlide();
-        event.stopPropagation();
+        return false;
       })
     )
     .append($("<a href='#' id='slide-list-link' />")
       .attr("title", HPK.localizationStrings["slideListLinkTitle"])
       .click(function(event) {
         slideList.show();
-        event.stopPropagation();
+        return false;
       })
     )
     .append($("<a href='#' id='next-slide-link' />")
       .attr("title", HPK.localizationStrings["nextSlideLinkTitle"])
       .click(function(event) {
         presentation.gotoNextSlide();
-        event.stopPropagation();
+        return false;
       })
     )
     .mouseover(function() {
@@ -159,7 +162,7 @@ HPK.Navigation = function(presentation, slideList) {
       that.touch();
     })
     .mousemove(function(event) {
-      event.stopPropagation();
+      return false;
     })
     .boxify();
   $("body").append(this._element);
@@ -234,7 +237,7 @@ HPK.Presentation.prototype = {
 
         /* The following line makes sure that the $(document.click(...) handler
            we setup in the "beginPresentation" will not catch the event. */
-        event.stopPropagation();
+        return false;
       })
     $("body").append($("<div id='run-presentation-link' />").append(link).boxify());
   },
