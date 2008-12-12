@@ -313,6 +313,10 @@ HPK.Presentation.prototype = {
           that._gotoBox.show();
           return false;
 
+        case 27: // ESC (IE)
+          that.endPresentation();
+          return false;
+
         case 0:
           switch (event.keyCode) {
             case 34: // Page Down
@@ -327,7 +331,7 @@ HPK.Presentation.prototype = {
               that.gotoPrevSlideOrEndPresentation();
               return false;
 
-            case 27: // ESC
+            case 27: // ESC (Gecko)
               that.endPresentation();
               return false;
           }
