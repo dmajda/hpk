@@ -1,8 +1,11 @@
-#run-presentation-link { display: block; position: fixed; _position: absolute; top: 1em; right: 1em; opacity: 0.8; }
+#run-presentation-link {
+  display: block; position: absolute; top: 1em; right: 1em; width: 16em;
+  opacity: 0.8; _filter: alpha(opacity = 80);
+}
 #run-presentation-link .body { font-size: 140%; }
 #run-presentation-link .body a {
-  display: block; min-height: 30px;
-  margin: -5px 0; padding-left: 40px;
+  display: block; min-height: 30px; _height: 30px;
+  padding-left: 40px;
   text-decoration: none;
   color: #c0c0c0;
   background: url("run-presentation-link.png") center left no-repeat;
