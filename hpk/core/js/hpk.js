@@ -286,11 +286,11 @@ HPK.Presentation.prototype = {
     });
 
     $(document).click(function(event) {
-      switch (event.which) {
-        case 1: // Left button
+      switch (event.button) {
+        case 0: // Left button
           that.gotoNextSlideOrEndPresentation();
           return false;
-        case 3: // Right button
+        case 2: // Right button
           that.gotoPrevSlideOrEndPresentation();
           return false;
       }
