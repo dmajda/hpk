@@ -206,7 +206,7 @@ HPK.Presentation.prototype = {
   /* Creates the link that enables user to run the presentation. */
   _createRunPresentationLink: function() {
     var that = this;
-    $("body").append($("<a href='#' id='run-presentation-link' />")
+    var link = $("<a href='#' />")
       .text(HPK.localizationStrings["runPresentationLinkText"])
       .click(function(event) {
         that.beginPresentation();
@@ -215,7 +215,7 @@ HPK.Presentation.prototype = {
            we setup in the "beginPresentation" will not catch the event. */
         event.stopPropagation();
       })
-    );
+    $("body").append($("<div id='run-presentation-link' />").append(link).boxify());
   },
 
   /* Returns current slide as jQuery object. */

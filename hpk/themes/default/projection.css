@@ -1,15 +1,5 @@
 body { font-size: 24pt; }
 
-.box .header { font-size: 1px; /* IE */ }
-.box .header-left  { background: url("box-header-left.png") top left no-repeat; }
-.box .header-right { background: url("box-header-right.png") top right no-repeat; }
-.box .header-inner { height: 15px; margin: 0 15px; background-color: black; }
-.box .body { padding: 5px 20px; color: gray; background-color: black; }
-.box .footer { font-size: 1px; /* IE */ }
-.box .footer-left  { background: url("box-footer-left.png") top left no-repeat; }
-.box .footer-right { background: url("box-footer-right.png") top right no-repeat; }
-.box .footer-inner { height: 15px; margin: 0 15px; background-color: black; }
-
 #current-slide-counter { position: fixed; _position: absolute; right: 2em; bottom: 1em; font-size: 50%; color: gray; }
 
 #goto-box { position: absolute; top: 0; left: 0; border: 1px solid black; }

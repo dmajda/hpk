@@ -1,4 +1,17 @@
-#run-presentation-link { display: block; position: fixed; _position: absolute; top: 1em; right: 1em; }
+#run-presentation-link { display: block; position: fixed; _position: absolute; top: 1em; right: 1em; opacity: 0.8; }
+#run-presentation-link .body { font-size: 140%; }
+#run-presentation-link .body a {
+  display: block; min-height: 30px;
+  margin: -5px 0; padding-left: 40px;
+  text-decoration: none;
+  color: #c0c0c0;
+  background: url("run-presentation-link.png") center left no-repeat;
+}
+#run-presentation-link .body a:hover {
+  color: white;
+  background: url("run-presentation-link-hover.png") center left no-repeat;
+}
+#run-presentation-link .body a:focus { outline: none; }
 
 .slide .handout { margin: 1em; padding: .5em 1em; background-color: #e0e0e0; }
 .slide .handout:before { display: block; font-weight: bold; }
