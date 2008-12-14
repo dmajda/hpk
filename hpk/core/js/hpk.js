@@ -153,6 +153,7 @@ HPK.SlideList.prototype = {
 /* Creates a new Navigation object. */
 HPK.Navigation = function(presentation, slideList) {
   this._visible = false;
+  this._pinned = false;
   var that = this;
   this._element = $("<div id='navigation' />")
     .append($("<a href='#' id='prev-slide-link' />")
@@ -177,7 +178,7 @@ HPK.Navigation = function(presentation, slideList) {
       })
     )
     .mouseover(function() {
-      that.clearHideTimer();
+      that._clearHideTimer();
     })
     .mouseout(function() {
       that.touch();
@@ -188,6 +189,7 @@ HPK.Navigation = function(presentation, slideList) {
     .boxify();
   $("body").append(this._element);
   this._hideTimer = null;
+  this._unpinTimer = null;
 }
 
 HPK.Navigation.prototype = {
@@ -196,21 +198,43 @@ HPK.Navigation.prototype = {
     return this._visible;
   },
 
+  /* Is the navigation pinned? */
+  isPinned: function() {
+    return this._pinned;
+  },
+
   /* Clears the current hiding timer. */
-  clearHideTimer: function() {
+  _clearHideTimer: function() {
     if (this._hideTimer) {
       clearTimeout(this._hideTimer);
       this._hideTimer = null;
     }
   },
 
+  /* Clears the current unpin timer. */
+  _clearUnpinTimer: function() {
+    if (this._unpinTimer) {
+      clearTimeout(this._unpinTimer);
+      this._unpinTimer = null;
+    }
+  },
+
   /* Clears the current hiding timer and creates a new one. */
   touch: function() {
-    this.clearHideTimer();
+    this._clearHideTimer();
     var that = this;
     this._hideTimer = setTimeout(function() {
       that.hide();
-    }, 5000);
+    }, 3000);
+  },
+
+  /* Marks the navigation as pinned for a while. */
+  pin: function(ms) {
+    this._pinned = true;
+    var that = this;
+    this._unpinTimer = setTimeout(function() {
+      that._pinned = false;
+    }, 3000);
   },
 
   /* Shows the navigation. */
@@ -220,18 +244,29 @@ HPK.Navigation.prototype = {
     this.touch();
   },
 
+  /* Shows the navigation immediately (without the fade effect). */
+  showWithoutFade: function() {
+    this._visible = true;
+    this._element.css("opacity", "0.8").show();
+    this.touch();
+  },
+
   /* Hides the navigation. */
   hide: function() {
-    this.clearHideTimer();
+    this._clearHideTimer();
+    this._clearUnpinTimer();
     this._element.fadeOut("normal");
     this._visible = false;
+    this._pinned = false;
   },
 
   /* Hides the navigation immediately (without the fade effect). */
   hideWithoutFade: function() {
-    this.clearHideTimer();
+    this._clearHideTimer();
+    this._clearUnpinTimer();
     this._element.hide();
     this._visible = false;
+    this._pinned = false;
   }
 }
 
@@ -288,6 +323,8 @@ HPK.Presentation.prototype = {
     this._slides.slice(1).hide();
     this._currentSlideIndex = 0;
     this._currentSlideCounter.update(this._currentSlideIndex);
+    this._navigation.showWithoutFade();
+    this._navigation.pin();
 
     this._screenStyleLinks.attr("media", "projection")
     this._projectionStyleLinks.attr("media", "screen");
@@ -307,7 +344,7 @@ HPK.Presentation.prototype = {
           that._navigation.touch();
         }
       } else {
-        if (that._navigation.isVisible()) {
+        if (that._navigation.isVisible() && !that._navigation.isPinned()) {
           that._navigation.hide();
         }
       }
