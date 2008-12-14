@@ -66,9 +66,18 @@ HPK.CurrentSlideCounter = function() {
 }
 
 HPK.CurrentSlideCounter.prototype = {
-  /* Updates the current slide counter. */
+  /* Updates the current slide counter and the location hash. */
   update: function(currentSlideIndex) {
-    this._element.text(currentSlideIndex + 1);
+    if (currentSlideIndex !== null) {
+      this._element.text(currentSlideIndex + 1);
+      location.hash = "slide-" + (currentSlideIndex + 1);
+    } else {
+      /* Following statement is somewhat imperfect - it causes reload in Firefox
+         and a trailing "#" character remians in the URL in IE and Chrome. But I
+         don't think it's worth to investigate this more or work around the
+         Firefox bug. At least until someone complains :-) */
+      location.hash = "";
+    }
   }
 }
 
@@ -363,6 +372,7 @@ HPK.Presentation.prototype = {
 
     this._slides.show();
     this._currentSlideIndex = null;
+    this._currentSlideCounter.update(this._currentSlideIndex);
     this._gotoBox.hide();
     this._slideList.hideWithoutFade();
     this._navigation.hideWithoutFade();
