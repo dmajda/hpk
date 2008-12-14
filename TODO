@@ -14,8 +14,6 @@ Version 1.0
 
 * Questions to consider:
   * Opera behavior - should we rely on the OSF only or add JS behavior?
-  * Should an attept to go to the next slide at the end (or to the previous slide at
-    the beginning) exit the presentation?
 
 Later versions
 --------------

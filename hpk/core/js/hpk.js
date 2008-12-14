@@ -307,10 +307,10 @@ HPK.Presentation.prototype = {
     $(document).click(function(event) {
       switch (event.button) {
         case 0: // Left button
-          that.gotoNextSlideOrEndPresentation();
+          that.gotoNextSlide();
           return false;
         case 2: // Right button
-          that.gotoPrevSlideOrEndPresentation();
+          that.gotoPrevSlide();
           return false;
       }
     });
@@ -319,11 +319,11 @@ HPK.Presentation.prototype = {
       switch (event.which) {
         case 32:  // Space
         case 110: // "n"
-          that.gotoNextSlideOrEndPresentation();
+          that.gotoNextSlide();
           return false;
 
         case 112: // "p"
-          that.gotoPrevSlideOrEndPresentation();
+          that.gotoPrevSlide();
           return false;
 
         case 103: // "g"
@@ -338,14 +338,14 @@ HPK.Presentation.prototype = {
         case 34: // Page Down
         case 39: // Right Arrow
         case 40: // Down Arrow
-          that.gotoNextSlideOrEndPresentation();
+          that.gotoNextSlide();
           return false;
 
         case 8:  // Backspace
         case 33: // Page Up
         case 37: // Left Arrow
         case 38: // Up Arrow
-          that.gotoPrevSlideOrEndPresentation();
+          that.gotoPrevSlide();
           return false;
 
         case 27: // ESC
@@ -413,30 +413,6 @@ HPK.Presentation.prototype = {
   /* If presenting, moves to the previous slide (if there is any). */
   gotoPrevSlide: function() {
     this.gotoSlide(this._currentSlideIndex - 1);
-  },
-
-  /* If presenting, moves to the next slide (if there is any) or ends the
-     presentation. */
-  gotoNextSlideOrEndPresentation: function() {
-    if (this._presenting) {
-      if (!this.isOnLastSlide()) {
-        this.gotoNextSlide();
-      } else {
-        this.endPresentation();
-      }
-    }
-  },
-
-  /* If presenting, moves to the previous slide (if there is any) or ends the
-     presentation. */
-  gotoPrevSlideOrEndPresentation: function() {
-    if (this._presenting) {
-      if (!this.isOnFirstSlide()) {
-        this.gotoPrevSlide();
-      } else {
-        this.endPresentation();
-      }
-    }
   }
 }
 
