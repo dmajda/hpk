@@ -317,10 +317,10 @@ HPK.Presentation.prototype = {
       switch (event.button) {
         case 0: // Left button
           that.gotoNextSlide();
-          return false;
+          return true;
         case 2: // Right button
           that.gotoPrevSlide();
-          return false;
+          return true;
       }
     });
 
