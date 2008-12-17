@@ -13,3 +13,19 @@ body {
 .box .footer-right { background: url("box-footer-right.png") top right no-repeat; }
 .box .footer-inner { height: 15px; margin: 0 15px; background-color: black; }
 
+.slide .left   { text-align: left;   }
+.slide .center { text-align: center; }
+.slide .right  { text-align: right;  }
+.slide .full-width { width: 100%; }
+.slide .half-width { width: 50%;  }
+.slide .highlight, .slide .highlight * { background-color: #ffff80; }
+
+.slide table { border-spacing: 0; border-collapse: collapse; }
+.slide td, .slide th { padding: 0; vertical-align: top; }
+.slide table.normal { border: 1pt solid #808075; }
+.slide table.normal td, .slide table.normal th { padding: 0.5em 1em; border: 1pt solid #808075; }
+.slide table.normal th { text-align: center; background-color: #f0f0dc; }
+
+.slide dt { margin-top: 1em; font-weight: bold; }
+
+.slide code { font-family: "Lucida Console", "Monaco CE", fixed, monospace; }

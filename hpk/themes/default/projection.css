@@ -23,10 +23,30 @@ input.focus-trap { position: absolute; top: -10000px; left: -10000px; width: 0; 
 #slide-list-link { top: 19px; left: 114px; width: 53px; height: 42px; background-image: url("slide-list-link.png"); }
 #slide-list-link:hover { background-image: url("slide-list-link-hover.png"); }
 
-.slide { padding: 5em 2em 2em 2em; }
+.slide { padding: 4em 2em 2em 2em; }
 .slide h1 {
   position: absolute; top: 0; left: 0; right: 0; _width: 100%; margin: 0; padding: .25em 1em;
   border-bottom: 1px solid #808075;
   font-size: 200%;
   color: black; background-color: #f0f0dc;
 }
+
+.slide h2 { font-size: 125%; margin: .8em 0; }
+
+.slide ul { list-style: disc; }
+.slide ul ul { list-style: square; }
+.slide li { margin-top: .325em; margin-bottom: .325em; padding-left: .325em; }
+.slide ul ul li, .slide ul ol li, .slide ol ul li, .slide ol ol li { font-size: 85%; }
+
+.slide.topic { padding: 2em 0; }
+.slide.topic h1 {
+  position: static; margin: 1em 0 0 0; border-top: 1px solid #808075; border-bottom: none; padding: .25em 1em;
+  text-align: center; font-size: 300%;
+}
+.slide.topic h2 {
+  margin: 0 0 0 0; border-bottom: 1px solid #808075; padding: .5em 0 .75em 0;
+  text-align: center; font-size: 150%; font-weight: normal;
+  color: black; background-color: #f0f0dc;
+}
+.slide.topic h3 { margin: 3.5em 0 0 0; text-align: center; font-size: 115%; font-weight: normal; }
+.slide.topic h4 { margin: .25em 0 0 0; text-align: center; font-weight: normal; }
