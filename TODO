@@ -5,14 +5,13 @@ Version 1.0
 * Font sizes
   * Allow explicit resizing using browser features or custom controls (suggested
     by Met)
-  * Maybe use Opera's solution based on media queries and emulate them in
-    unsupported browsers?
-    (http://www.opera.com/browser/tutorials/operashow/documentation/doc_stylesheets.dml)
-* Sophisticated intro/example presentation
+* Intro/example presentation
 * Project website
+* README
 
-* Questions to consider:
-  * Opera behavior - should we rely on the OSF only or add JS behavior?
+* Release criteria:
+  * At least one real presentation done with HPK
+  * At least three themes (to make sure that the theming support is sufficient)
 
 Later versions
 --------------
@@ -24,3 +23,7 @@ Following points are only ideas. I am not sure I will implement any of them.
 * Stuff from http://vsemiosmi.blogspot.com/2008/12/publikovani-prezentaci-slideshare.html
   * Automatic slideshow
   * Jump to beginning/end
+* Opera behavior - should we rely on the OSF only or add JS behavior?
+* CSS transitions
+  * http://ajaxian.com/archives/s5-presentations-with-css-transitions
+* Look at S5 and maybe "steal" some ideas
