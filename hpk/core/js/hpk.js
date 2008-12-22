@@ -290,6 +290,12 @@ HPK.Presentation = function() {
 }
 
 HPK.Presentation.prototype = {
+  /* Sets the base document font size. The size is specified in CSS format (as
+     passed to the font-size rule). */
+  _setBaseFontSize: function(size) {
+    document.body.style.fontSize = size;
+  },
+
   /* Creates the link that enables user to run the presentation. */
   _createRunPresentationLink: function() {
     var that = this;
@@ -320,6 +326,7 @@ HPK.Presentation.prototype = {
     if (this._presenting) { return; }
     if (this._slides.length == 0) { return; }
 
+    this._setBaseFontSize(0.04 * $(window).height() + "px");
     this._slides.slice(1).hide();
     this._currentSlideIndex = 0;
     this._currentSlideCounter.update(this._currentSlideIndex);
@@ -407,6 +414,7 @@ HPK.Presentation.prototype = {
   endPresentation: function() {
     if (!this._presenting) { return; }
 
+    this._setBaseFontSize("100%");
     this._slides.show();
     this._currentSlideIndex = null;
     this._currentSlideCounter.update(this._currentSlideIndex);
