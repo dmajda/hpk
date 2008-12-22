@@ -27,3 +27,6 @@ Following points are only ideas. I am not sure I will implement any of them.
 * CSS transitions
   * http://ajaxian.com/archives/s5-presentations-with-css-transitions
 * Look at S5 and maybe "steal" some ideas
+* CSS class for big vertically-centered captions (suggested by Met)
+  * Like in http://www.aiga.org/resources/content/5/3/2/4/documents/AIGA_Gain_JeffreyZeldman.pdf
+  * Center using JavaScript if necessary
