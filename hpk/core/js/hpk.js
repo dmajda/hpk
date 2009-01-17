@@ -489,11 +489,7 @@ $(document).ready(function() {
     var windowWidth = $(window).width();
     var windowHeight = $(window).height();
 
-    /* This is obviously an optimization, but we do it mainly because IE
-       triggers the resize handler much more often than it should, which
-       results to switching from and to the presentation again in certain
-       situations (such as clicking the "Run presentation" link or at the
-       end of the presentation). */
+    /* Optimization, the event is sometimes triggered unnecessairly by IE. */
     if (windowWidth == oldWindowWidth && windowHeight == oldWindowHeight) {
       return;
     }
@@ -507,10 +503,11 @@ $(document).ready(function() {
       : screen.width - windowWidth <= 20
         && screen.height - windowHeight <= 20;
 
+    /* Automatically begin the presentation when the browser is switched to the
+       full-screen mode. The presentation does not automatically end when
+       switching out of the full-screen mode because it would be disturbing. */
     if (!HPK.presentation.isPresenting() && isFullscreen) {
       HPK.presentation.beginPresentation();
-    } else if (HPK.presentation.isPresenting() && !isFullscreen) {
-      HPK.presentation.endPresentation();
     }
 
     oldWindowWidth = windowWidth;
