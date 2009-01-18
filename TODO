@@ -2,8 +2,9 @@ These are the areas I intend to work on in the HTML Presentation Kit.
 
 Version 1.0
 -----------
-* Stopping and running the presentation again should return to the most recent
-  slide (not to the first one)
+* Update jQuery to 1.3
+* Try to get rid of $.browser
+* Try embedding into <iframe>
 
 * Intro/example presentation
 * Project website
