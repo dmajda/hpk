@@ -127,6 +127,9 @@ HPK.SlideList.prototype = {
   /* Shows the slide list. */
   show: function() {
     this._element
+      .find("ol")
+        .css("maxHeight", $("body").outerHeight() * 0.5 + "px")
+      .end()
       .css(
         "top",
         ($("body").outerHeight() - this._element.outerHeight()) / 2 + "px"
