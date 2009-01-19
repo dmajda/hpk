@@ -3,3 +3,5 @@
 #current-slide-counter { display: none; }
 
 .layout { display: none; }
+
+.slide.incomplete { display: none; }

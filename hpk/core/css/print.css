@@ -8,3 +8,5 @@
 .slide { page-break-inside: avoid; }
 .slide abbr { border-bottom: none; }
 .slide a[href]:after { content: " [" attr(href) "] "; }
+
+.slide.incomplete { display: none; }
