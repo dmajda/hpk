@@ -2,7 +2,6 @@ These are the areas I intend to work on in the HTML Presentation Kit.
 
 Version 1.0
 -----------
-* Try to get rid of $.browser
 * The slide list should work correctly with many slides (scrollbar...)
 
 * Intro/example presentation
