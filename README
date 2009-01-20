@@ -1,0 +1,47 @@
+HPK: HTML Presentation Kit
+==========================
+[TODO:URL]
+
+HPK is a toolkit for creating presentations in HTML. The presentations created
+using HPK can be viewed directly in your browser - either as a single HTML page
+with all slides, or as a slide show like in any common presentation program. The
+toolkit will automatically generate navigation controls, handle keyboard
+navigation, etc. No additional software except the browser is needed to view the
+presentation. Technically, the toolkit is just a bunch of CSS and JavaScript
+files which you link in your HTML file with the presentation. 
+
+The features include:
+
+* Full mouse an keyboard navigation in the presentation
+* Themability with nice default theme
+* Localization support
+* Compatibility with OSF 1.0 (http://www.opera.com/browser/tutorials/operashow/)
+
+Usage
+-----
+1. Open the example-presentation.html file in your browser.
+2. Click "Run presentation" and learn about the HPK features.
+3. Copy the file and modify it to create your own presentation. Use its source
+   code as a guide.
+4. For more information about creating presentations in HPK, see the
+   documentation at the HPK website: [TODO:URL].
+
+Browser support
+---------------
+* IE 6+
+* Firefox 3+
+* Safari 3+
+* Chrome 1+
+* Opera 9.6+
+
+It is entirely possible that the HPK presentations will work in other browsers
+or older browser versions too. The supported browsers and version are the ones I
+tested extensively.
+
+Author
+------
+HPK was bought to you by David Majda (david@majda.cz, www.majda.cz).
+
+More information
+----------------
+See the HPK website at http://hpk.majda.cz/.
