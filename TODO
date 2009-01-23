@@ -2,7 +2,6 @@ These are the areas I intend to work on in the HTML Presentation Kit.
 
 Version 1.0
 -----------
-* Rework hashes once more (like: #presentation, #13)
 * Counter should be like "13/27"
 * "q" should end the presentation
 * Separate the slides on the page a bit

@@ -70,7 +70,7 @@ HPK.CurrentSlideCounter.prototype = {
   update: function(currentSlideIndex) {
     if (currentSlideIndex !== null) {
       this._element.text(currentSlideIndex + 1);
-      location.hash = "presentation+slide-" + (currentSlideIndex + 1);
+      location.hash = currentSlideIndex + 1;
     } else {
       /* Following statement is somewhat imperfect - it causes reload in Firefox
          and a trailing "#" character remians in the URL in IE and Chrome. But I
@@ -517,11 +517,13 @@ $(document).ready(function() {
     oldWindowHeight = windowHeight;
   });
 
-  var matches = document.location.hash.match(/^#presentation(\+slide-(\d+))?$/);
+  var hash = document.location.hash;
+  if (hash == "#presentation") {
+    HPK.presentation.beginPresentation();
+  }
+  var matches = hash.match(/^#(\d+)$/);
   if (matches) {
     HPK.presentation.beginPresentation();
-    if (matches[1]) {
-      HPK.presentation.gotoSlide(parseInt(matches[2]) - 1);
-    }
+    HPK.presentation.gotoSlide(parseInt(matches[1]) - 1);
   }
 });
