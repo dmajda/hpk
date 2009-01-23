@@ -16,5 +16,9 @@
 }
 #run-presentation-link .body a:focus { outline: none; }
 
-.slide .handout { margin: 1em; padding: .5em 1em; background-color: #e0e0e0; }
+.slide { padding: 0 2em 1em 1em; border-bottom: 2px dotted gray; }
+/* Note: IE does not recognize :last-child, but I don't care here - it's just
+   one line at the bottom of the screen. */
+.slide:last-child { border-bottom: none; }
+.slide .handout { margin: 1em 0; padding: .5em 1em; background-color: #e0e0e0; }
 .slide .handout:before { display: block; font-weight: bold; }
