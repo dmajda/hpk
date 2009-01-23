@@ -60,7 +60,8 @@ HPK.GotoBox.prototype = {
 /* ===== CurrentSlideCounter ===== */
 
 /* Creates a new CurrentSlideCounter object. */
-HPK.CurrentSlideCounter = function() {
+HPK.CurrentSlideCounter = function(slideCount) {
+  this._slideCount = slideCount;
   this._element = $("<div id='current-slide-counter' />");
   $("body").append(this._element);
 }
@@ -69,7 +70,7 @@ HPK.CurrentSlideCounter.prototype = {
   /* Updates the current slide counter and the location hash. */
   update: function(currentSlideIndex) {
     if (currentSlideIndex !== null) {
-      this._element.text(currentSlideIndex + 1);
+      this._element.text((currentSlideIndex + 1) + "/" + this._slideCount);
       location.hash = currentSlideIndex + 1;
     } else {
       /* Following statement is somewhat imperfect - it causes reload in Firefox
@@ -286,7 +287,7 @@ HPK.Presentation = function() {
 
   this._createRunPresentationLink();
 
-  this._currentSlideCounter = new HPK.CurrentSlideCounter;
+  this._currentSlideCounter = new HPK.CurrentSlideCounter(this._slides.length);
   this._gotoBox = new HPK.GotoBox(this);
   this._slideList = new HPK.SlideList(this, this._slides);
   this._navigation = new HPK.Navigation(this, this._slideList);
