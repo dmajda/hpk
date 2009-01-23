@@ -386,6 +386,10 @@ HPK.Presentation.prototype = {
         case 103: // "g"
           that._gotoBox.show();
           return false;
+
+        case 113: // "q"
+          that.endPresentation();
+          return false;
       }
     });
 
