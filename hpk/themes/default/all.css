@@ -1,6 +1,6 @@
 body {
   color: black; background-color: white;
-  font-family: "Trebuchet MS", "Geneva CE", lucida, sans-serif;
+  font-family: "Trebuchet MS", lucida, sans-serif;
 }
 
 .box .header { font-size: 1px; /* IE */ }
